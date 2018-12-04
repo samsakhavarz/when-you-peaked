@@ -8,33 +8,34 @@ class App extends Component {
     super();
     this.state = ({
       authorSearch: "",
-      authorWorks: []
+      authorWorks: [],
+      authorID: 0
     })
   }
 
   componentDidMount() {
 
     // this is the second acios call to GoodReads API - getting the book ID
-    axios({
-      url: 'http://proxy.hackeryou.com',
-      dataResponse: 'json',
-      paramsSerializer: function (params) {
-        return Qs.stringify(params, { arrayFormat: 'brackets' })
-      },
-      params: {
-        reqUrl: 'https://www.goodreads.com/book/show',
-        params: {
-          key: 'dRJuutBqKWVrrJUND8jbmQ',
-          id: 77566
-        },
-        proxyHeaders: {
-          'header_params': 'value'
-        },
-        xmlToJSON: true
-      }
-    }).then(res => {
-      console.log(res);
-    });
+    // axios({
+    //   url: 'http://proxy.hackeryou.com',
+    //   dataResponse: 'json',
+    //   paramsSerializer: function (params) {
+    //     return Qs.stringify(params, { arrayFormat: 'brackets' })
+    //   },
+    //   params: {
+    //     reqUrl: 'https://www.goodreads.com/book/show',
+    //     params: {
+    //       key: 'dRJuutBqKWVrrJUND8jbmQ',
+    //       id: 77566
+    //     },
+    //     proxyHeaders: {
+    //       'header_params': 'value'
+    //     },
+    //     xmlToJSON: true
+    //   }
+    // }).then(res => {
+    //   console.log(res);
+    // });
   }
 
   // handling on change input - updating our state of authorSearch
@@ -56,7 +57,8 @@ class App extends Component {
         reqUrl: 'https://www.goodreads.com/search/index.xml',
         params: {
           q: this.state.authorSearch,
-          key: 'dRJuutBqKWVrrJUND8jbmQ'
+          key: 'dRJuutBqKWVrrJUND8jbmQ',
+          searchauthor: "author",
         },
         proxyHeaders: {
           'header_params': 'value'
@@ -66,11 +68,41 @@ class App extends Component {
     }).then(res => {
       // filter results to get just an array of author's works, from which we will get all other data
       this.setState({
-        authorWorks: res.data.GoodreadsResponse.search.results.work
+        authorID: res.data.GoodreadsResponse.search.results.work[0].best_book.author.id["$t"]
       })
+
+      axios({
+        url: 'http://proxy.hackeryou.com',
+        dataResponse: 'json',
+        paramsSerializer: function (params) {
+          return Qs.stringify(params, { arrayFormat: 'brackets' })
+        },
+        params: {
+          reqUrl: `https://www.goodreads.com/author/list.xml`,
+          params: {
+            key: 'dRJuutBqKWVrrJUND8jbmQ',
+            page: 1 - 10,
+            id: this.state.authorID
+          },
+          proxyHeaders: {
+            'header_params': 'value'
+          },
+          xmlToJSON: true
+        }
+      }).then( res => {
+        this.setState({
+          authorWorks: res
+        })
+      // sorts the array and makes a new one with just two books
+      // const sortedWorks = this.state.authorWorks.sort((a, b) => {
+      //     return a.average_rating - b.average_rating
+      //   })
       console.log("this is authorWorks",this.state.authorWorks);
-    });
-  }
+      })
+     
+    })
+}
+
 
   render() {
     return (
