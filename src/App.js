@@ -8,7 +8,23 @@ class App extends Component {
     super();
     this.state = ({
       authorSearch: "",
-      authorWorks: [],
+      sortedWorks: [],
+      highBook: {
+        id: 0,
+        title: "",
+        year: 0,
+        description: "",
+        avgRating: 0,
+        cover: ""
+      },
+      lowBook: {
+        id: 0,
+        title: "",
+        year: 0,
+        description: "",
+        avgRating: 0,
+        cover: ""
+      }
     })
   }
 
@@ -19,6 +35,8 @@ class App extends Component {
     })
   }
 
+
+// the one that works
   handleSubmit = (e) => {
     e.preventDefault();
     axios({
@@ -32,7 +50,7 @@ class App extends Component {
         params: {
           q: this.state.authorSearch,
           key: 'dRJuutBqKWVrrJUND8jbmQ',
-          searchauthor: "author",
+          search: "author",
         },
         proxyHeaders: {
           'header_params': 'value'
@@ -40,40 +58,64 @@ class App extends Component {
         xmlToJSON: true
       }
     }).then(res => {
-      // filter results to get just an array of author's works, from which we will get all other data
-      this.setState({
-        authorWorks: res.data.GoodreadsResponse.search.results.work
-      });
-      // sorts the array and makes a new one with just two books
-      const sortedWorks = this.state.authorWorks.sort((a, b) => {
+      console.log(res);
+      
+        const authorWorks = res.data.GoodreadsResponse.search.results.work
+
+        // sorts the array by average rating
+        const sorted = authorWorks.sort((a, b) => {
           return a.average_rating - b.average_rating
         });
-      console.log("this is sortedWorks", sortedWorks);
 
-       // axios({
-      //   url: 'http://proxy.hackeryou.com',
-      //   dataResponse: 'json',
-      //   paramsSerializer: function (params) {
-      //     return Qs.stringify(params, { arrayFormat: 'brackets' })
-      //   },
-      //   params: {
-      //     reqUrl: `https://www.goodreads.com/author/list.xml`,
-      //     params: {
-      //       key: 'dRJuutBqKWVrrJUND8jbmQ',
-      //       page: 1,
-      //       id: this.state.authorID
-      //     },
-      //     proxyHeaders: {
-      //       'header_params': 'value'
-      //     },
-      //     xmlToJSON: true
-      //   }
-      // }).then( res => {
-      //   this.setState({
-      //     authorWorks: res
-      //   })
-      });
-    }
+        console.log("sorted:",sorted);
+              
+        // take the lowest (first) and highest (last) rated books and set state
+        this.setState({
+          sortedWorks: sorted,
+        })
+
+      this.setState(
+        {
+          highBook: {
+            id: this.state.sortedWorks[this.state.sortedWorks.length - 1].best_book.id["$t"],
+            title: this.state.sortedWorks[this.state.sortedWorks.length - 1].best_book.title,
+            year: this.state.sortedWorks[this.state.sortedWorks.length - 1].original_publication_year["$t"],
+            avgRating: this.state.sortedWorks[this.state.sortedWorks.length - 1].average_rating,
+            cover: this.state.sortedWorks[this.state.sortedWorks.length - 1].best_book.img_url
+          },
+          lowBook: {
+            id: this.state.sortedWorks[0].best_book.id["$t"],
+            title: this.state.sortedWorks[0].best_book.title,
+            year: this.state.sortedWorks[0].original_publication_year["$t"],
+            avgRating: this.state.sortedWorks[0].average_rating,
+            cover: this.state.sortedWorks[0].best_book.img_url
+          }
+        })
+
+      // NEXT AXIOS TEST: Book by id
+      axios({
+        url: 'https://proxy.hackeryou.com',
+        dataResponse: 'json',
+        paramsSerializer: function (params) {
+          return Qs.stringify(params, { arrayFormat: 'brackets' })
+        },
+        params: {
+          reqUrl: `https://www.goodreads.com/book/show/${this.state.highBook.id}.xml`,
+          params: {
+            key: 'dRJuutBqKWVrrJUND8jbmQ',
+            text_only: false
+          },
+          proxyHeaders: {
+            'header_params': 'value'
+          },
+          xmlToJSON: true
+        }
+      }).then(res => {
+        // take the lowest (first) and highest (last) rated books and set state
+        console.log("this is res from axios 2:", res);
+      })
+    })
+  }
 
   render() {
     return (
@@ -89,7 +131,5 @@ class App extends Component {
     );
   };
 }
-
-
 
   export default App;
