@@ -9,33 +9,7 @@ class App extends Component {
     this.state = ({
       authorSearch: "",
       authorWorks: [],
-      authorID: 0
     })
-  }
-
-  componentDidMount() {
-
-    // this is the second acios call to GoodReads API - getting the book ID
-    // axios({
-    //   url: 'http://proxy.hackeryou.com',
-    //   dataResponse: 'json',
-    //   paramsSerializer: function (params) {
-    //     return Qs.stringify(params, { arrayFormat: 'brackets' })
-    //   },
-    //   params: {
-    //     reqUrl: 'https://www.goodreads.com/book/show',
-    //     params: {
-    //       key: 'dRJuutBqKWVrrJUND8jbmQ',
-    //       id: 77566
-    //     },
-    //     proxyHeaders: {
-    //       'header_params': 'value'
-    //     },
-    //     xmlToJSON: true
-    //   }
-    // }).then(res => {
-    //   console.log(res);
-    // });
   }
 
   // handling on change input - updating our state of authorSearch
@@ -68,41 +42,38 @@ class App extends Component {
     }).then(res => {
       // filter results to get just an array of author's works, from which we will get all other data
       this.setState({
-        authorID: res.data.GoodreadsResponse.search.results.work[0].best_book.author.id["$t"]
-      })
-
-      axios({
-        url: 'http://proxy.hackeryou.com',
-        dataResponse: 'json',
-        paramsSerializer: function (params) {
-          return Qs.stringify(params, { arrayFormat: 'brackets' })
-        },
-        params: {
-          reqUrl: `https://www.goodreads.com/author/list.xml`,
-          params: {
-            key: 'dRJuutBqKWVrrJUND8jbmQ',
-            page: 1 - 10,
-            id: this.state.authorID
-          },
-          proxyHeaders: {
-            'header_params': 'value'
-          },
-          xmlToJSON: true
-        }
-      }).then( res => {
-        this.setState({
-          authorWorks: res
-        })
+        authorWorks: res.data.GoodreadsResponse.search.results.work
+      });
       // sorts the array and makes a new one with just two books
-      // const sortedWorks = this.state.authorWorks.sort((a, b) => {
-      //     return a.average_rating - b.average_rating
-      //   })
-      console.log("this is authorWorks",this.state.authorWorks);
-      })
-     
-    })
-}
+      const sortedWorks = this.state.authorWorks.sort((a, b) => {
+          return a.average_rating - b.average_rating
+        });
+      console.log("this is sortedWorks", sortedWorks);
 
+       // axios({
+      //   url: 'http://proxy.hackeryou.com',
+      //   dataResponse: 'json',
+      //   paramsSerializer: function (params) {
+      //     return Qs.stringify(params, { arrayFormat: 'brackets' })
+      //   },
+      //   params: {
+      //     reqUrl: `https://www.goodreads.com/author/list.xml`,
+      //     params: {
+      //       key: 'dRJuutBqKWVrrJUND8jbmQ',
+      //       page: 1,
+      //       id: this.state.authorID
+      //     },
+      //     proxyHeaders: {
+      //       'header_params': 'value'
+      //     },
+      //     xmlToJSON: true
+      //   }
+      // }).then( res => {
+      //   this.setState({
+      //     authorWorks: res
+      //   })
+      });
+    }
 
   render() {
     return (
@@ -118,5 +89,7 @@ class App extends Component {
     );
   };
 }
+
+
 
   export default App;
