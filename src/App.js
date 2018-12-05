@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import axios from "axios";
 import Qs from 'qs';
+import nl2br from 'react-newline-to-break';
 
 class App extends Component {
   constructor() {
