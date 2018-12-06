@@ -41,7 +41,6 @@ class App extends Component {
     })
   }
 
-
 // the one that works
   handleSubmit = (e) => {
     e.preventDefault();
