@@ -16,7 +16,9 @@ class App extends Component {
         description: "",
         avgRating: 0,
         cover: "",
-        url: ""
+        url: "",
+        starRatings: 0,
+        textReviews: 0
       },
       lowBook: {
         id: 0,
@@ -25,7 +27,9 @@ class App extends Component {
         description: "",
         avgRating: 0,
         cover: "",
-        url: ""
+        url: "",
+        starRatings: 0,
+        textReviews: 0
       }
     })
   }
@@ -60,8 +64,7 @@ class App extends Component {
         xmlToJSON: true
       }
     }).then(res => {
-      
-      const authorWorks = res.data.GoodreadsResponse.search.results.work
+      const authorWorks = res.data.GoodreadsResponse.search.results.work;      
 
       // sorts the array by average rating
       const sorted = authorWorks.sort((a, b) => {
@@ -98,61 +101,61 @@ class App extends Component {
     })
   }
 
-// method to get description asnd url from a different API request, called by handleSubmit
-getDescAndUrl = (book) => {
-  
-  // NEXT AXIOS TEST: find book description and url using id we got from other call
-  axios({
-    url: 'https://proxy.hackeryou.com',
-    dataResponse: 'json',
-    paramsSerializer: function (params) {
-      return Qs.stringify(params, { arrayFormat: 'brackets' })
-    },
-    params: {
-      reqUrl: `https://www.goodreads.com/book/show/${book.id}.xml`,
+  // method to get description asnd url from a different API request, called by handleSubmit
+  getDescAndUrl = (book) => {
+    // NEXT AXIOS TEST: find book description and url using id we got from other call
+    axios({
+      url: 'https://proxy.hackeryou.com',
+      dataResponse: 'json',
+      paramsSerializer: function (params) {
+        return Qs.stringify(params, { arrayFormat: 'brackets' })
+      },
       params: {
-        key: 'dRJuutBqKWVrrJUND8jbmQ',
-        text_only: false
-      },
-      proxyHeaders: {
-        'header_params': 'value'
-      },
-      xmlToJSON: true
-    }
-  }).then(res => {
-    // take the lowest (first) and highest (last) rated books and set state
-    // console.log("original res:", res);
+        reqUrl: `https://www.goodreads.com/book/show/${book.id}.xml`,
+        params: {
+          key: 'dRJuutBqKWVrrJUND8jbmQ',
+          text_only: false
+        },
+        proxyHeaders: {
+          'header_params': 'value'
+        },
+        xmlToJSON: true
+      }
+    }).then(res => {
+      
+      // take the lowest (first) and highest (last) rated books and set state
+      console.log("second API request res:", res);
 
-    const desc = res.data.GoodreadsResponse.book["description"]
-    const link = res.data.GoodreadsResponse.book.url    
+      const desc = res.data.GoodreadsResponse.book["description"]
+      const link = res.data.GoodreadsResponse.book.url    
 
-    // if the book we pass to getDescAndUrl is highBook, then set the whole state of highBook, else set the state of lowBook
-    // CAN WE DO THIS ANOTHER WAY????
-    book === this.state.highBook ?
-    this.setState({
-          highBook: {
-            id: this.state.sortedWorks[this.state.sortedWorks.length - 1].best_book.id["$t"],
-            title: this.state.sortedWorks[this.state.sortedWorks.length - 1].best_book.title,
-            year: this.state.sortedWorks[this.state.sortedWorks.length - 1].original_publication_year["$t"],
-            avgRating: this.state.sortedWorks[this.state.sortedWorks.length - 1].average_rating,
-            cover: this.state.sortedWorks[this.state.sortedWorks.length - 1].best_book.img_url,
+      // if the book we pass to getDescAndUrl is highBook, then set the whole state of highBook, else set the state of lowBook
+      // CAN WE DO THIS ANOTHER WAY????
+      book === this.state.highBook ?
+      this.setState({
+            highBook: {
+              id: this.state.sortedWorks[this.state.sortedWorks.length - 1].best_book.id["$t"],
+              title: this.state.sortedWorks[this.state.sortedWorks.length - 1].best_book.title,
+              year: this.state.sortedWorks[this.state.sortedWorks.length - 1].original_publication_year["$t"],
+              avgRating: this.state.sortedWorks[this.state.sortedWorks.length - 1].average_rating,
+              cover: this.state.sortedWorks[this.state.sortedWorks.length - 1].best_book.img_url,
+              url: link,
+              description: desc
+            }
+      }) :
+      this.setState({
+          lowBook: {
+            id: this.state.sortedWorks[0].best_book.id["$t"],
+            title: this.state.sortedWorks[0].best_book.title,
+            year: this.state.sortedWorks[0].original_publication_year["$t"],
+            avgRating: this.state.sortedWorks[0].average_rating,
+            cover: this.state.sortedWorks[0].best_book.img_url,
             url: link,
             description: desc
           }
-    }) :
-    this.setState({
-        lowBook: {
-          id: this.state.sortedWorks[0].best_book.id["$t"],
-          title: this.state.sortedWorks[0].best_book.title,
-          year: this.state.sortedWorks[0].original_publication_year["$t"],
-          avgRating: this.state.sortedWorks[0].average_rating,
-          cover: this.state.sortedWorks[0].best_book.img_url,
-          url: link,
-          description: desc
-        }
+      })
     })
-  })
-}
+  }
 
   render() {
     return (
