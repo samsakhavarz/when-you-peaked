@@ -41,8 +41,12 @@ class App extends Component {
     })
   }
 
+  
+
 // the one that works
   handleSubmit = (e) => {
+    console.log("THIS IS THE WRONG VERSION LOL");
+    
     e.preventDefault();
     axios({
       url: 'http://proxy.hackeryou.com',
