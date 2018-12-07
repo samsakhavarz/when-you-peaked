@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import './App.css';
+import Plot from "./Plot.js";
 import axios from "axios";
 import Qs from 'qs';
+
 class BookResults extends Component {
     constructor() {
         super();
@@ -35,6 +37,7 @@ class BookResults extends Component {
             }
         })
     }
+
     componentDidMount() {
         axios({
             url: 'http://proxy.hackeryou.com',
@@ -162,7 +165,6 @@ class BookResults extends Component {
     }
    
     render() {
-        // console.log(this.props.authorSearch)
         return (
             <div>
                 <div>
@@ -175,6 +177,7 @@ class BookResults extends Component {
                     <p>Number of Text Reviews: {`${this.state.highBook.textReviewCount}`}</p>
                     <p>Talk Score: {`${this.state.highBook.talkScore}`}</p>
                 </div>
+                <Plot data={`${this.state.chartData}`} />
                 <div>
                     <h2>{`${this.state.lowBook.title}`}</h2>
                     <p dangerouslySetInnerHTML={{ __html: this.state.lowBook.description }}></p>

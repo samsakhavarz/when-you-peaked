@@ -6,6 +6,7 @@
     "axios": "^0.18.0",
     "dangerously-set-inner-html": "^2.0.1",
     "react": "^16.6.3",
+    "react-charts": "^2.0.0-alpha.12",
     "react-dom": "^16.6.3",
     "react-newline-to-break": "^1.0.6",
     "react-scripts": "2.1.1"

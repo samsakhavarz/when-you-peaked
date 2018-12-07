@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import './App.css';
 import BookResults from './BookResults.js';
-import Chart from './Chart.js';
 import Form from './Form.js';
 
 class App extends Component {
@@ -23,7 +22,6 @@ class App extends Component {
   //handlesubmit now takes 2 parameters, the event and history
   handleSubmit = (e, history) => {
     e.preventDefault();
-    // console.log("working cool sweet", e, history);
     history.push("/bookresults");
   }
 
