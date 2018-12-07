@@ -8,6 +8,7 @@ class BookResults extends Component {
         super();
         this.state = ({
             sortedWorks: [],
+            chartData: [],
             highBook: {
                 id: 0,
                 title: "",
@@ -35,7 +36,6 @@ class BookResults extends Component {
         })
     }
     componentDidMount() {
-        console.log("am i working?");
         axios({
             url: 'http://proxy.hackeryou.com',
             dataResponse: 'json',
@@ -56,15 +56,26 @@ class BookResults extends Component {
             }
         }).then(res => {
             const authorWorks = res.data.GoodreadsResponse.search.results.work
+
+            // create an array of arrays to plot our data points in Chart
+            const data = authorWorks.map((index) => {
+                return [index.original_publication_year["$t"], index.average_rating]
+            })
+
             // sorts the array by average rating
             const sorted = authorWorks.sort((a, b) => {
                 return a.average_rating - b.average_rating
             });
-            // take the lowest (first) and highest (last) rated books and set state
+
+            //set state with sorted array and chart data
             this.setState({
                 sortedWorks: sorted,
+                chartData: data
             })
-            // set state from API info
+
+            console.log("this is chart data", this.state.chartData);
+            
+            // set state from API info. take the lowest (first) and highest (last) rated books
             this.setState(
                 {
                     highBook: {
