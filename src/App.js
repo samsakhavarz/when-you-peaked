@@ -9,6 +9,7 @@ class App extends Component {
     this.state = ({
       authorSearch: "",
       sortedWorks: [],
+      chartData: [],
       highBook: {
         id: 0,
         title: "",
@@ -41,8 +42,6 @@ class App extends Component {
     })
   }
 
-  
-
 // the one that works
   handleSubmit = (e) => {    
     e.preventDefault();
@@ -65,7 +64,14 @@ class App extends Component {
         xmlToJSON: true
       }
     }).then(res => {
-      const authorWorks = res.data.GoodreadsResponse.search.results.work;      
+      console.log(res);
+      
+      const authorWorks = res.data.GoodreadsResponse.search.results.work;
+      
+      // create an array of arrays to plot our data points in Chart
+      const data = authorWorks.map((index) => {
+        return [index.original_publication_year["$t"], index.average_rating]
+      })
 
       // sorts the array by average rating
       const sorted = authorWorks.sort((a, b) => {
@@ -75,7 +81,11 @@ class App extends Component {
       // take the lowest (first) and highest (last) rated books and set state
       this.setState({
         sortedWorks: sorted,
+        chartData: data
       })
+
+      console.log(this.state.chartData);
+      
 
       // set state from API info
       this.setState(
