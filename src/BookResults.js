@@ -37,6 +37,12 @@ class BookResults extends Component {
     }
 
     componentDidMount(){
+        this.getData(this.props.authorSubmit);
+    }
+
+    //  first Axios call, setting
+    getData = (author) => {
+   
         console.log("am i working?");
         axios({
             url: 'http://proxy.hackeryou.com',
@@ -47,7 +53,7 @@ class BookResults extends Component {
             params: {
                 reqUrl: 'https://www.goodreads.com/search/index.xml',
                 params: {
-                    q: this.props.authorSearch,
+                    q: author,
                     key: 'dRJuutBqKWVrrJUND8jbmQ',
                     search: "author",
                 },
@@ -78,7 +84,7 @@ class BookResults extends Component {
                         title: this.state.sortedWorks[this.state.sortedWorks.length - 1].best_book.title,
                         year: this.state.sortedWorks[this.state.sortedWorks.length - 1].original_publication_year["$t"],
                         avgRating: this.state.sortedWorks[this.state.sortedWorks.length - 1].average_rating,
-                        cover: this.state.sortedWorks[this.state.sortedWorks.length - 1].best_book.img_url 
+                        cover: this.state.sortedWorks[this.state.sortedWorks.length - 1].best_book.img_url
                     },
                     lowBook: {
                         id: this.state.sortedWorks[0].best_book.id["$t"],
@@ -93,8 +99,16 @@ class BookResults extends Component {
             this.getDescAndUrl(this.state.highBook);
             this.getDescAndUrl(this.state.lowBook);
         })
-
     }
+       
+
+    // if the new search is different from the old search, then make another axios call and fire the whole process again
+    componentDidUpdate(prevProps){
+        if (this.props.authorSubmit !== prevProps.authorSubmit) {
+            this.getData(this.props.authorSubmit);
+        }
+    }
+
 // method to get description and url from a different API request, called by handleSubmit
     getDescAndUrl = (book) => {
 
@@ -168,7 +182,7 @@ class BookResults extends Component {
     // }
 
     render() {
-        // console.log(this.props.authorSearch)
+        console.log(this.props.authorSubmit)
         return(
             <div>
                 <div>

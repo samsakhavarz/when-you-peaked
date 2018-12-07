@@ -12,6 +12,7 @@ class App extends Component {
     super();
     this.state = ({
       authorSearch: "",
+      authorSubmit: ""
     })
   }
 
@@ -25,8 +26,11 @@ class App extends Component {
 //handlesubmit now takes 2 parameters, the event and history
   handleSubmit = (e, history) => {
     e.preventDefault();
-    console.log("working cool sweet", e, history);
     history.push("/bookresults");
+    this.setState({
+     authorSubmit: this.state.authorSearch
+    })
+ 
   }
 
   render() {
@@ -36,15 +40,10 @@ class App extends Component {
         <header>
           <h1>When You Peaked</h1>
           <p> Welcome to Sabrehawk & Baggins</p>
+          <Form handleSubmit={this.handleSubmit} handleChange={this.handleChange} authorSearch={this.state.authorSearch} /> 
         </header>
-          
-        
-        <Route path="/" render={() => 
-            <Form handleSubmit={this.handleSubmit} handleChange={this.handleChange} authorSearch={this.state.authorSearch}/> }>
-        </Route>
-
         <Route path="/bookresults" render={() => 
-            <BookResults authorSearch={this.state.authorSearch} />} />
+            <BookResults authorSubmit={this.state.authorSubmit} />} />
         </div>
       </Router>
     );
