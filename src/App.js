@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+
 import './App.css';
 import axios from "axios";
 import Qs from 'qs';
@@ -42,9 +43,12 @@ class App extends Component {
           <p> Welcome to Sabrehawk & Baggins</p>
           <Form handleSubmit={this.handleSubmit} handleChange={this.handleChange} authorSearch={this.state.authorSearch} /> 
         </header>
+
+          
+                                      
         <Route path="/bookresults" render={() => 
-            <BookResults authorSubmit={this.state.authorSubmit} />} />
-        </div>
+            <BookResults authorSubmit={this.state.authorSubmit} />} /> 
+       </div>
       </Router>
     );
   };
