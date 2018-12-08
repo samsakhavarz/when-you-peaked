@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 
 import './App.css';
+import './App.scss';
 import axios from "axios";
 import Qs from 'qs';
 import BookResults from './BookResults.js';
@@ -38,7 +39,7 @@ class App extends Component {
     return (
       <Router>
         <div className="App">
-        <header>
+        <header className="mainHeader">
           <h1>When You Peaked</h1>
           <p> Welcome to Sabrehawk & Baggins</p>
           <Form handleSubmit={this.handleSubmit} handleChange={this.handleChange} authorSearch={this.state.authorSearch} /> 
