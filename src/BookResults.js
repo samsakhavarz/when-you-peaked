@@ -187,9 +187,10 @@ class BookResults extends Component {
         
         console.log(this.props.authorSubmit)
         return(
-            <div>
+            
+            <div className="resultContainer clearfix">
                 
-                <div>
+                <div className="highBook bookHero">
                     <h2>{`${this.state.highBook.title}`}</h2>
                     {/* <p>{`${this.state.highBook.description}`}</p> */}
                     <p dangerouslySetInnerHTML={{ __html: this.state.highBook.description}}></p>
@@ -197,19 +198,20 @@ class BookResults extends Component {
                     <p> Average Rating: {`${this.state.highBook.avgRating}`}</p>
                     <p> Number of Star Rating: {`${this.state.highBook.starRatingCount}`}</p>
                     <p>Number of Text Reviews: {`${this.state.highBook.textReviewCount}`}</p>
-                    <p>Talk Score: {`${this.state.highBook.talkScore}`}</p>
+                    <p className="talkScore">Talk Score: {`${this.state.highBook.talkScore}`}</p>
                 </div>
 
-                <div>
+                <div className="lowBook bookHero">
                     <h2>{`${this.state.lowBook.title}`}</h2>
                     <p dangerouslySetInnerHTML={{ __html: this.state.lowBook.description }}></p>
                     <p> Year: {`${this.state.lowBook.year}`}</p>
                     <p> Average Rating: {`${this.state.lowBook.avgRating}`}</p>
                     <p> Number of Star Rating: {`${this.state.lowBook.starRatingCount}`}</p>
                     <p>Number of Text Reviews: {`${this.state.lowBook.textReviewCount}`}</p>
-                    <p>Talk Score: {`${this.state.lowBook.talkScore}`}</p>
+                    <p className="talkScore">Talk Score: {`${this.state.lowBook.talkScore}`}</p>
                 </div>
             </div>
+            
                
 
         )

@@ -39,17 +39,21 @@ class App extends Component {
     return (
       <Router>
         <div className="App">
-        <header className="mainHeader">
-          <h1>When You Peaked</h1>
-          <p> Welcome to Sabrehawk & Baggins</p>
-          <Form handleSubmit={this.handleSubmit} handleChange={this.handleChange} authorSearch={this.state.authorSearch} /> 
-        </header>
+          <div className="wrapper">
+            <header className="mainHeader">
+              <h1 className="title animated flipInX delay-1s">VERSVS</h1>
+              <p class="introCopy">Compare your favourite author's highest and lowest rated books. See where their highs and lows landed over time.</p>
+              <Form handleSubmit={this.handleSubmit} handleChange={this.handleChange} authorSearch={this.state.authorSearch} /> 
+            </header>
+          </div>
 
-          
-                                      
-        <Route path="/bookresults" render={() => 
-            <BookResults authorSubmit={this.state.authorSubmit} />} /> 
-       </div>
+          <div className="backDrop">
+            <div className="wrapper">
+              <Route path="/bookresults" render={() => 
+              <BookResults authorSubmit={this.state.authorSubmit} />} />        
+            </div>                           
+          </div>
+        </div>
       </Router>
     );
   };
