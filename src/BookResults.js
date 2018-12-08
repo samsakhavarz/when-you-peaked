@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import './App.css';
 import axios from "axios";
 import Qs from 'qs';
+import MDSpinner from "react-md-spinner";
 
 class BookResults extends Component {
     constructor() {
@@ -38,6 +39,7 @@ class BookResults extends Component {
 
     componentDidMount(){
         this.getData(this.props.authorSubmit);
+
     }
 
     //  first Axios call, setting
@@ -182,9 +184,11 @@ class BookResults extends Component {
     // }
 
     render() {
+        
         console.log(this.props.authorSubmit)
         return(
             <div>
+                
                 <div>
                     <h2>{`${this.state.highBook.title}`}</h2>
                     {/* <p>{`${this.state.highBook.description}`}</p> */}
@@ -206,6 +210,7 @@ class BookResults extends Component {
                     <p>Talk Score: {`${this.state.lowBook.talkScore}`}</p>
                 </div>
             </div>
+               
 
         )
     }
