@@ -140,18 +140,22 @@ body {
 .wrapper {
   max-width: 1080px;
   width: 80%;
-  margin: 0 auto; }
+  margin: 0 auto;
+  background: #fafafa; }
 
 .title {
-  font-size: 8rem;
+  font-size: 10rem;
   font-family: "Poppins", sans-serif;
   color: #ea4136; }
+
+h3 {
+  margin: 0; }
 
 .mainHeader {
   text-align: center;
   background: #fafafa;
   padding: 20px;
-  margin-bottom: 2%; }
+  margin-bottom: 20%; }
   .mainHeader .introCopy,
   .mainHeader form {
     font-size: 2rem;
@@ -165,6 +169,8 @@ body {
       font-style: italic;
       text-align: center;
       background: #fafafa; }
+  .mainHeader form {
+    margin: 5% 0; }
   .mainHeader .button {
     border: 2px solid #ea4136;
     background: #fafafa;
@@ -178,7 +184,6 @@ body {
       background: #ea4136; }
 
 .backDrop {
-  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.4)), url(./alfons-morales-410757-unsplash.jpg);
   background-repeat: no-repeat;
   background-position: cover; }
 
@@ -186,10 +191,42 @@ body {
   width: 100%;
   font-family: "Lato", sans-serif;
   font-size: 1.8rem;
-  border-top: 2px solid #ea4136; }
+  border-top: 2px solid #ea4136;
+  padding-bottom: 5%; }
 
 .bookHero {
   float: left;
   width: 50%;
   padding: 20px;
   background: #fafafa; }
+
+.talkScore {
+  margin: 0 2% 0 0;
+  float: left;
+  background: #ea4136;
+  width: 75px;
+  height: 75px;
+  border-radius: 50%;
+  color: #fafafa;
+  font-size: 1.4rem;
+  position: relative; }
+  .talkScore p {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%); }
+
+footer {
+  border-top: 2px solid #ea4136;
+  background: #838383;
+  text-align: center;
+  font-size: 1.6rem;
+  font-family: "Lato", sans-serif;
+  letter-spacing: 1.5px;
+  padding: 2% 0;
+  position: absolute;
+  bottom: 0;
+  width: 100%; }
+  footer span {
+    color: #ea4136;
+    font-size: 2rem; }

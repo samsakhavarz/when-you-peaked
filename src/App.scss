@@ -4,6 +4,10 @@ article,aside,details,figcaption,figure,footer,header,hgroup,nav,section,summary
 
 * { -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box; }
 
+// .App {
+//     height: 100vh;
+// }
+
 //COLOURS 
 $accentColor: #ea4136;
 $lightGrey: #e0e2e2;
@@ -27,26 +31,33 @@ body {
     max-width: 1080px;
     width: 80%;
     margin: 0 auto;
+    background: $white;
 }
 
 //TYPOGRAPHY
 .title {
-    font-size: 8rem;
+    font-size: 10rem;
     font-family: $titleFont;
     color: $accentColor;
 }
 
+h3 {
+    margin: 0;
+}
+
+
+//HEADER
 .mainHeader {
     text-align: center;
     background: $white;
     padding: 20px;
-    margin-bottom: 2%;
+    margin-bottom: 20%;
+
     .introCopy,
     form {
         font-size: 2rem;
         font-family: $text-font;
-
-    
+  
         .searchField {
             width: 35%;
             margin-right: 2%;
@@ -57,7 +68,11 @@ body {
             background: $white;
         }
     }
-    //BUTTON 
+    form {
+        margin: 5% 0;
+    }
+
+//BUTTON 
     .button {
         border: 2px solid $accentColor;
         background: $white;
@@ -73,8 +88,9 @@ body {
     }
 }
 
+//BOOK RESULTS
 .backDrop {
-    background: linear-gradient(to bottom, rgba(255,255,255,0.4), rgba(255,255,255,0.4)), url(./alfons-morales-410757-unsplash.jpg);
+    // background: linear-gradient(to bottom, rgba(255,255,255,0.4), rgba(255,255,255,0.4)), url(./alfons-morales-410757-unsplash.jpg);
     background-repeat: no-repeat;
     background-position: cover;
 }
@@ -84,6 +100,7 @@ body {
     font-family: $text-font;
     font-size: 1.8rem;
     border-top: 2px solid $accentColor;
+    padding-bottom: 5%;
 
 }
 
@@ -94,5 +111,42 @@ body {
     background: $white;   
 }
 
+.talkScore {
+    margin: 0 2% 0 0;
+    float: left;
+    background: $accentColor;
+    width: 75px;
+    height: 75px;
+    border-radius: 50%;
+    color: $white;
+    font-size: 1.4rem;
+    position: relative;
+    p {
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+}
 
 
+//FOOTER
+footer {
+    border-top: 2px solid $accentColor;
+    background:$darkGrey;
+    text-align: center;
+    font-size: 1.6rem;
+    font-family: $text-font;
+    letter-spacing: 1.5px;
+    padding: 2% 0;
+    position: absolute;
+    bottom: 0;
+
+    
+    
+    width: 100%;
+    span {
+        color: $accentColor;
+        font-size: 2rem;
+    }
+}
