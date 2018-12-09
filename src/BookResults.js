@@ -4,6 +4,7 @@ import './App.css';
 import Chart from "./Chart.js";
 import axios from "axios";
 import Qs from 'qs';
+import MDSpinner from "react-md-spinner";
 
 class BookResults extends Component {
     constructor() {
@@ -41,6 +42,7 @@ class BookResults extends Component {
 
     componentDidMount(){
         this.getData(this.props.authorSubmit);
+
     }
 
     //  first Axios call, setting
@@ -204,30 +206,60 @@ class BookResults extends Component {
         })
     }
    
-    render() {
+    render() {       
+        console.log(this.props.authorSubmit)
+
         return(
-            <div>
-                <div>
+            
+            <div className="resultContainer clearfix">
+                
+                <div className="highBook bookHero">
                     <h2>{`${this.state.highBook.title}`}</h2>
-                    <p>{`${this.state.highBook.description}`}</p>
-                    <p dangerouslySetInnerHTML={{ __html: this.state.highBook.description }}></p>
-                    <p> Year: {`${this.state.highBook.year}`}</p>
-                    <p> Average Rating: {`${this.state.highBook.avgRating}`}</p>
-                    <p> Number of Star Rating: {`${this.state.highBook.starRatingCount}`}</p>
-                    <p>Number of Text Reviews: {`${this.state.highBook.textReviewCount}`}</p>
-                    <p>Talk Score: {`${this.state.highBook.talkScore}`}</p>
-                </div>
-                <Chart years={this.state.yearsArray} ratings={this.state.ratingsArray}/>
+
                 <div>
-                    <h2>{`${this.state.lowBook.title}`}</h2>
-                    <p dangerouslySetInnerHTML={{ __html: this.state.lowBook.description }}></p>
-                    <p> Year: {`${this.state.lowBook.year}`}</p>
-                    <p> Average Rating: {`${this.state.lowBook.avgRating}`}</p>
-                    <p> Number of Star Rating: {`${this.state.lowBook.starRatingCount}`}</p>
-                    <p>Number of Text Reviews: {`${this.state.lowBook.textReviewCount}`}</p>
-                    <p>Talk Score: {`${this.state.lowBook.talkScore}`}</p>
+
+                    {/* <p>{`${this.state.highBook.description}`}</p> */}
+                    <div className="bookStats">
+                        <p> Year: {`${this.state.highBook.year}`}</p>
+                        <p> Average Rating: {`${this.state.highBook.avgRating}`}</p>
+                        <p> Number of Star Rating: {`${this.state.highBook.starRatingCount}`}</p>
+                        <p className="bookStat">Number of Text Reviews: {`${this.state.highBook.textReviewCount}`}</p>                 
+                    </div>
+                    <div className="talkScore">
+                        <p>Talk Score: {`${this.state.highBook.talkScore}`}</p>
+                    </div>
+                    <div className="description">
+                        <h3>Description: </h3>
+                        <p dangerouslySetInnerHTML={{ __html: this.state.highBook.description}}></p>         
+                    </div>
+                    <Chart years={this.state.yearsArray} ratings={this.state.ratingsArray}/>
                 </div>
+
+                <div className="lowBook bookHero">
+
+                    <h2>{`${this.state.lowBook.title}`}</h2>
+                    <div className="bookStats">
+                        <p>Year: {`${this.state.lowBook.year}`}</p>
+                        <p>Average Rating: {`${this.state.lowBook.avgRating}`}</p>
+                        <p>Number of Star Rating: {`${this.state.lowBook.starRatingCount}`}</p>
+                        <p>Number of Text Reviews: {`${this.state.lowBook.textReviewCount}`}</p>         
+                    </div>
+                    <div className="talkScore">
+                        <p>Talk Score: {`${this.state.lowBook.talkScore}`}</p>                  
+                    </div>
+                    <div className="description">
+                        <h3>Description: </h3>
+                        <p dangerouslySetInnerHTML={{ __html: this.state.lowBook.description }}></p>
+                    </div>
+                </div>
+
+                
             </div>
+
+
+            
+               
+
         )
     }
 }
