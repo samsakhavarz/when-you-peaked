@@ -42,17 +42,22 @@ class App extends Component {
           <div className="wrapper">
             <header className="mainHeader">
               <h1 className="title animated flipInX delay-1s">VERSVS</h1>
-              <p class="introCopy">Compare your favourite author's highest and lowest rated books. See where their highs and lows landed over time.</p>
+              <p class="introCopy">Compare your favourite author's highest and lowest rated books. See where they peaked and plunged throughout their literary career.</p>
               <Form handleSubmit={this.handleSubmit} handleChange={this.handleChange} authorSearch={this.state.authorSearch} /> 
             </header>
+          
           </div>
 
           <div className="backDrop">
             <div className="wrapper">
               <Route path="/bookresults" render={() => 
-              <BookResults authorSubmit={this.state.authorSubmit} />} />        
+              <BookResults authorSubmit={this.state.authorSubmit} />} />       
             </div>                           
           </div>
+          {/* <footer>
+            <p>Proudly made by Claire Valant, Mikey Couture and Sam Sakhavarz</p>
+            <p className="corpTitle">SabreHawk <span>&</span> Baggins est. 2018</p>
+          </footer> */}
         </div>
       </Router>
     );

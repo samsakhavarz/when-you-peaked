@@ -193,23 +193,39 @@ class BookResults extends Component {
                 <div className="highBook bookHero">
                     <h2>{`${this.state.highBook.title}`}</h2>
                     {/* <p>{`${this.state.highBook.description}`}</p> */}
-                    <p dangerouslySetInnerHTML={{ __html: this.state.highBook.description}}></p>
-                    <p> Year: {`${this.state.highBook.year}`}</p>
-                    <p> Average Rating: {`${this.state.highBook.avgRating}`}</p>
-                    <p> Number of Star Rating: {`${this.state.highBook.starRatingCount}`}</p>
-                    <p>Number of Text Reviews: {`${this.state.highBook.textReviewCount}`}</p>
-                    <p className="talkScore">Talk Score: {`${this.state.highBook.talkScore}`}</p>
+                    <div className="bookStats">
+                        <p> Year: {`${this.state.highBook.year}`}</p>
+                        <p> Average Rating: {`${this.state.highBook.avgRating}`}</p>
+                        <p> Number of Star Rating: {`${this.state.highBook.starRatingCount}`}</p>
+                        <p className="bookStat">Number of Text Reviews: {`${this.state.highBook.textReviewCount}`}</p>                 
+                    </div>
+                    <div className="talkScore">
+                        <p>Talk Score: {`${this.state.highBook.talkScore}`}</p>
+                    </div>
+                    <div className="description">
+                        <h3>Description: </h3>
+                        <p dangerouslySetInnerHTML={{ __html: this.state.highBook.description}}></p>         
+                    </div>
                 </div>
 
                 <div className="lowBook bookHero">
                     <h2>{`${this.state.lowBook.title}`}</h2>
-                    <p dangerouslySetInnerHTML={{ __html: this.state.lowBook.description }}></p>
-                    <p> Year: {`${this.state.lowBook.year}`}</p>
-                    <p> Average Rating: {`${this.state.lowBook.avgRating}`}</p>
-                    <p> Number of Star Rating: {`${this.state.lowBook.starRatingCount}`}</p>
-                    <p>Number of Text Reviews: {`${this.state.lowBook.textReviewCount}`}</p>
-                    <p className="talkScore">Talk Score: {`${this.state.lowBook.talkScore}`}</p>
+                    <div className="bookStats">
+                        <p>Year: {`${this.state.lowBook.year}`}</p>
+                        <p>Average Rating: {`${this.state.lowBook.avgRating}`}</p>
+                        <p>Number of Star Rating: {`${this.state.lowBook.starRatingCount}`}</p>
+                        <p>Number of Text Reviews: {`${this.state.lowBook.textReviewCount}`}</p>         
+                    </div>
+                    <div className="talkScore">
+                        <p>Talk Score: {`${this.state.lowBook.talkScore}`}</p>                  
+                    </div>
+                    <div className="description">
+                        <h3>Description: </h3>
+                        <p dangerouslySetInnerHTML={{ __html: this.state.lowBook.description }}></p>
+                    </div>
                 </div>
+
+                
             </div>
             
                
