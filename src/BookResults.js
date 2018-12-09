@@ -197,7 +197,7 @@ class BookResults extends Component {
                         <p> Year: {`${this.state.highBook.year}`}</p>
                         <p> Average Rating: {`${this.state.highBook.avgRating}`}</p>
                         <p> Number of Star Rating: {`${this.state.highBook.starRatingCount}`}</p>
-                        <p className="bookStat">Number of Text Reviews: {`${this.state.highBook.textReviewCount}`}</p>                 
+                        <p>Number of Text Reviews: {`${this.state.highBook.textReviewCount}`}</p>                 
                     </div>
                     <div className="talkScore">
                         <p>Talk Score: {`${this.state.highBook.talkScore}`}</p>
