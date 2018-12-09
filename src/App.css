@@ -134,17 +134,13 @@ legend, button::-moz-focus-inner, input::-moz-focus-inner {
 html {
   font-size: 62.5%; }
 
-body {
-  background: #e0e2e2; }
-
 .wrapper {
   max-width: 1080px;
-  width: 80%;
-  margin: 0 auto;
-  background: #fafafa; }
+  width: 100%;
+  margin: 0 auto; }
 
 .title {
-  font-size: 10rem;
+  font-size: 5rem;
   font-family: "Poppins", sans-serif;
   color: #ea4136; }
 
@@ -154,51 +150,53 @@ h3 {
 .mainHeader {
   text-align: center;
   background: #fafafa;
-  padding: 20px;
-  margin-bottom: 20%; }
+  padding: 10px;
+  margin-bottom: 5%; }
   .mainHeader .introCopy,
   .mainHeader form {
-    font-size: 2rem;
+    font-size: 1.8rem;
     font-family: "Lato", sans-serif; }
+    .mainHeader .introCopy label,
+    .mainHeader form label {
+      font-weight: 700; }
     .mainHeader .introCopy .searchField,
     .mainHeader form .searchField {
-      width: 35%;
-      margin-right: 2%;
+      width: 75%;
+      margin: 5% 0 10% 0;
       border: none;
       border-bottom: 2px solid #ea4136;
       font-style: italic;
       text-align: center;
       background: #fafafa; }
-  .mainHeader form {
-    margin: 5% 0; }
   .mainHeader .button {
     border: 2px solid #ea4136;
     background: #fafafa;
     color: #ea4136;
-    padding: 5px;
-    width: 15%;
+    padding: 10px;
+    width: 90%;
     transition: background 0.3s, color 0.3s; }
     .mainHeader .button:hover,
     .mainHeader .button :focus {
       color: #fafafa;
       background: #ea4136; }
 
-.backDrop {
-  background-repeat: no-repeat;
-  background-position: cover; }
-
 .resultContainer {
   width: 100%;
   font-family: "Lato", sans-serif;
   font-size: 1.8rem;
-  border-top: 2px solid #ea4136;
+  border-top: 2px solid #838383;
   padding-bottom: 5%; }
 
 .bookHero {
-  float: left;
-  width: 50%;
-  padding: 20px;
+  width: 100%;
+  padding: 20px 25px;
   background: #fafafa; }
+
+.highBook {
+  border-bottom: 2px solid #ea4136; }
+
+.bookStats {
+  text-align: center; }
 
 .talkScore {
   margin: 0 2% 0 0;
@@ -215,18 +213,3 @@ h3 {
     top: 0;
     left: 50%;
     transform: translateX(-50%); }
-
-footer {
-  border-top: 2px solid #ea4136;
-  background: #838383;
-  text-align: center;
-  font-size: 1.6rem;
-  font-family: "Lato", sans-serif;
-  letter-spacing: 1.5px;
-  padding: 2% 0;
-  position: absolute;
-  bottom: 0;
-  width: 100%; }
-  footer span {
-    color: #ea4136;
-    font-size: 2rem; }
