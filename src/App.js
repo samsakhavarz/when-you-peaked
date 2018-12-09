@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
-
 import './App.css';
 import './App.scss';
 import axios from "axios";
 import Qs from 'qs';
 import BookResults from './BookResults.js';
-import Chart from './Chart.js';
 import Form from './Form.js';
 
 class App extends Component {
@@ -25,7 +23,7 @@ class App extends Component {
     })
   }
 
-//handlesubmit now takes 2 parameters, the event and history
+  //handlesubmit now takes 2 parameters, the event and history
   handleSubmit = (e, history) => {
     e.preventDefault();
     history.push("/bookresults");
@@ -64,4 +62,4 @@ class App extends Component {
   };
 }
 
-  export default App;
+export default App;
