@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+//import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import './App.css';
-import Plot from "./Plot.js";
+import Chart from "./Chart.js";
 import axios from "axios";
 import Qs from 'qs';
 
@@ -10,7 +10,8 @@ class BookResults extends Component {
         super();
         this.state = ({
             sortedWorks: [],
-            chartData: [],
+            yearsArray: [],
+            ratingsArray:[],
             highBook: {
                 id: 0,
                 title: "",
@@ -38,7 +39,12 @@ class BookResults extends Component {
         })
     }
 
-    componentDidMount() {
+    componentDidMount(){
+        this.getData(this.props.authorSubmit);
+    }
+
+    //  first Axios call, setting
+    getData = (author) => {
         axios({
             url: 'http://proxy.hackeryou.com',
             dataResponse: 'json',
@@ -46,37 +52,63 @@ class BookResults extends Component {
                 return Qs.stringify(params, { arrayFormat: 'brackets' })
             },
             params: {
-                reqUrl: 'https://www.goodreads.com/search/index.xml',
+                reqUrl: `https://www.goodreads.com/search?q=${author}&search[field]=author&format=xml&key=dRJuutBqKWVrrJUND8jbmQ`,
                 params: {
-                    q: this.props.authorSearch,
+                    q: author,
                     key: 'dRJuutBqKWVrrJUND8jbmQ',
-                    search: "author",
+                    //search: "author",
                 },
                 proxyHeaders: {
                     'header_params': 'value'
                 },
                 xmlToJSON: true
             }
-        }).then(res => {
+        }).then(res => {            
             const authorWorks = res.data.GoodreadsResponse.search.results.work
-
-            // create an array of arrays to plot our data points in Chart
-            const data = authorWorks.map((index) => {
-                return [index.original_publication_year["$t"], index.average_rating]
-            })
-
+            console.log("this is authorWorks",authorWorks);
+            
             // sorts the array by average rating
             const sorted = authorWorks.sort((a, b) => {
                 return a.average_rating - b.average_rating
             });
 
+            // // create an array of arrays to plot our data points in Chart, starting with x axis
+            // const years = authorWorks.filter((index) => {
+            //     return [index.original_publication_year["$t"]]
+            // })
+
+            // // and average rating on the y axis
+            // const avgRatings = authorWorks.map((index) => {
+            //     return [index.average_rating]
+            // })
+
+            // initialize arrays for books with defined publication year and average rating
+            const years = [];
+            const avgRatings = [];
+
+            // filter out the indecies in authorWorks with undefined years and add the book to arrays
+            for (let i = 0; i < authorWorks.length; i++) {
+                // authorWorks[i].original_publication_year != "undefined" ?
+                // years.push(authorWorks[i].original_publication_year["$t"]) &&
+                // avgRatings.push(authorWorks[i].average_rating)
+                // :
+                // null
+                if (typeof (authorWorks[i].original_publication_year) !== undefined) {
+                    years.push(authorWorks[i].original_publication_year["$t"]) &&
+                        avgRatings.push(authorWorks[i].average_rating)
+                }
+            }
+
+            console.log("this is years", years);
+            console.log("this is avgRatings", avgRatings);
+
             //set state with sorted array and chart data
             this.setState({
                 sortedWorks: sorted,
-                chartData: data
-            })
-
-            console.log("this is chart data", this.state.chartData);
+                yearsArray: years,
+                ratingsArray: avgRatings
+                }
+            )
             
             // set state from API info. take the lowest (first) and highest (last) rated books
             this.setState(
@@ -101,7 +133,16 @@ class BookResults extends Component {
             this.getDescAndUrl(this.state.lowBook);
         })
     }
-    // method to get description and url from a different API request, called by handleSubmit
+       
+
+    // if the new search is different from the old search, then make another axios call and fire the whole process again
+    componentDidUpdate(prevProps){
+        if (this.props.authorSubmit !== prevProps.authorSubmit) {
+            this.getData(this.props.authorSubmit);
+        }
+    }
+
+// method to get description and url from a different API request, called by handleSubmit
     getDescAndUrl = (book) => {
         // NEXT AXIOS TEST: find book description and url using id we got from other call
         axios({
@@ -123,7 +164,6 @@ class BookResults extends Component {
             }
         }).then(res => {
             // take the lowest (first) and highest (last) rated books and set state
-            // console.log("original res:", res);
             const desc = res.data.GoodreadsResponse.book["description"]
             const link = res.data.GoodreadsResponse.book.url
             const ratings = res.data.GoodreadsResponse.book.ratings_count
@@ -165,7 +205,7 @@ class BookResults extends Component {
     }
    
     render() {
-        return (
+        return(
             <div>
                 <div>
                     <h2>{`${this.state.highBook.title}`}</h2>
@@ -177,7 +217,7 @@ class BookResults extends Component {
                     <p>Number of Text Reviews: {`${this.state.highBook.textReviewCount}`}</p>
                     <p>Talk Score: {`${this.state.highBook.talkScore}`}</p>
                 </div>
-                <Plot data={`${this.state.chartData}`} />
+                <Chart years={this.state.yearsArray} ratings={this.state.ratingsArray}/>
                 <div>
                     <h2>{`${this.state.lowBook.title}`}</h2>
                     <p dangerouslySetInnerHTML={{ __html: this.state.lowBook.description }}></p>

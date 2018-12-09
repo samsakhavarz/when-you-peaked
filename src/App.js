@@ -9,6 +9,7 @@ class App extends Component {
     super();
     this.state = ({
       authorSearch: "",
+      authorSubmit: ""
     })
   }
 
@@ -23,24 +24,23 @@ class App extends Component {
   handleSubmit = (e, history) => {
     e.preventDefault();
     history.push("/bookresults");
+    this.setState({
+     authorSubmit: this.state.authorSearch
+    })
+ 
   }
 
   render() {
     return (
       <Router>
         <div className="App">
-          <header>
-            <h1>When You Peaked</h1>
-            <p> Welcome to Sabrehawk & Baggins</p>
-          </header>
-
-
-          <Route path="/" render={() =>
-            <Form handleSubmit={this.handleSubmit} handleChange={this.handleChange} authorSearch={this.state.authorSearch} />}>
-          </Route>
-
-          <Route path="/bookresults" render={() =>
-            <BookResults authorSearch={this.state.authorSearch} />} />
+        <header>
+          <h1>When You Peaked</h1>
+          <p> Welcome to Sabrehawk & Baggins</p>
+          <Form handleSubmit={this.handleSubmit} handleChange={this.handleChange} authorSearch={this.state.authorSearch} /> 
+        </header>
+        <Route path="/bookresults" render={() => 
+            <BookResults authorSubmit={this.state.authorSubmit} />} />
         </div>
       </Router>
     );
