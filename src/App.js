@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import './App.css';
+import './App.scss';
+import axios from "axios";
+import Qs from 'qs';
 import BookResults from './BookResults.js';
 import Form from './Form.js';
 
@@ -34,13 +37,25 @@ class App extends Component {
     return (
       <Router>
         <div className="App">
-        <header>
-          <h1>When You Peaked</h1>
-          <p> Welcome to Sabrehawk & Baggins</p>
-          <Form handleSubmit={this.handleSubmit} handleChange={this.handleChange} authorSearch={this.state.authorSearch} /> 
-        </header>
-        <Route path="/bookresults" render={() => 
-            <BookResults authorSubmit={this.state.authorSubmit} />} />
+          <div className="wrapper">
+            <header className="mainHeader">
+              <h1 className="title animated flipInX delay-1s">VERSVS</h1>
+              <p class="introCopy">Compare your favourite author's highest and lowest rated books. See where they peaked and plunged throughout their literary career.</p>
+              <Form handleSubmit={this.handleSubmit} handleChange={this.handleChange} authorSearch={this.state.authorSearch} /> 
+            </header>
+          
+          </div>
+
+          <div className="backDrop">
+            <div className="wrapper">
+              <Route path="/bookresults" render={() => 
+              <BookResults authorSubmit={this.state.authorSubmit} />} />       
+            </div>                           
+          </div>
+          {/* <footer>
+            <p>Proudly made by Claire Valant, Mikey Couture and Sam Sakhavarz</p>
+            <p className="corpTitle">SabreHawk <span>&</span> Baggins est. 2018</p>
+          </footer> */}
         </div>
       </Router>
     );
