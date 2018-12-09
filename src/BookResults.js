@@ -10,7 +10,7 @@ class BookResults extends Component {
     constructor() {
         super();
         this.state = ({
-            sortedWorks: [],
+            sortedByAvg: [],
             yearsArray: [],
             ratingsArray:[],
             highBook: {
@@ -66,47 +66,46 @@ class BookResults extends Component {
                 xmlToJSON: true
             }
         }).then(res => {            
+            // array of 20 works by searched author
             const authorWorks = res.data.GoodreadsResponse.search.results.work
-            console.log("this is authorWorks",authorWorks);
+
+            // delete any elements in authorWorks with a null/undefined year
+            for (let i = 0; i < authorWorks.length; i++) {
+                if (authorWorks[i].original_publication_year["nil"]) {
+                    authorWorks.splice(i,1);
+                }
+            }
+
+            console.log("this is author works",authorWorks);
             
-            // sorts the array by average rating
-            const sorted = authorWorks.sort((a, b) => {
+            // sorts the array of works by average rating to get the highest and lowest rated books
+            const sortedByAvg = authorWorks.sort((a, b) => {
                 return a.average_rating - b.average_rating
             });
 
-            // // create an array of arrays to plot our data points in Chart, starting with x axis
-            // const years = authorWorks.filter((index) => {
-            //     return [index.original_publication_year["$t"]]
-            // })
+            // sorts the array of works by year (to display on chart)
+            const sortedByYear = authorWorks.sort((a, b) => {
+                return a.original_publication_year["$t"] - b.original_publication_year["$t"]
+            });
 
-            // // and average rating on the y axis
-            // const avgRatings = authorWorks.map((index) => {
-            //     return [index.average_rating]
-            // })
+            console.log("this is sortedByYear", sortedByYear);
 
-            // initialize arrays for books with defined publication year and average rating
-            const years = [];
-            const avgRatings = [];
+            // initialize array of JUST years...
+            const years = sortedByYear.map(book => {
+                return book.original_publication_year["$t"]
+            })
 
-            // filter out the indecies in authorWorks with undefined years and add the book to arrays
-            for (let i = 0; i < authorWorks.length; i++) {
-                // authorWorks[i].original_publication_year != "undefined" ?
-                // years.push(authorWorks[i].original_publication_year["$t"]) &&
-                // avgRatings.push(authorWorks[i].average_rating)
-                // :
-                // null
-                if (typeof (authorWorks[i].original_publication_year) !== undefined) {
-                    years.push(authorWorks[i].original_publication_year["$t"]) &&
-                        avgRatings.push(authorWorks[i].average_rating)
-                }
-            }
+            // ...and an array of JUST avg ratings to pass to the Chart
+            const avgRatings = sortedByYear.map(book => {
+                return book.average_rating
+            })
 
             console.log("this is years", years);
             console.log("this is avgRatings", avgRatings);
 
             //set state with sorted array and chart data
             this.setState({
-                sortedWorks: sorted,
+                sortedByAvg: sortedByAvg,
                 yearsArray: years,
                 ratingsArray: avgRatings
                 }
@@ -116,18 +115,18 @@ class BookResults extends Component {
             this.setState(
                 {
                     highBook: {
-                        id: this.state.sortedWorks[this.state.sortedWorks.length - 1].best_book.id["$t"],
-                        title: this.state.sortedWorks[this.state.sortedWorks.length - 1].best_book.title,
-                        year: this.state.sortedWorks[this.state.sortedWorks.length - 1].original_publication_year["$t"],
-                        avgRating: this.state.sortedWorks[this.state.sortedWorks.length - 1].average_rating,
-                        cover: this.state.sortedWorks[this.state.sortedWorks.length - 1].best_book.img_url
+                        id: this.state.sortedByAvg[this.state.sortedByAvg.length - 1].best_book.id["$t"],
+                        title: this.state.sortedByAvg[this.state.sortedByAvg.length - 1].best_book.title,
+                        year: this.state.sortedByAvg[this.state.sortedByAvg.length - 1].original_publication_year["$t"],
+                        avgRating: this.state.sortedByAvg[this.state.sortedByAvg.length - 1].average_rating,
+                        cover: this.state.sortedByAvg[this.state.sortedByAvg.length - 1].best_book.img_url
                     },
                     lowBook: {
-                        id: this.state.sortedWorks[0].best_book.id["$t"],
-                        title: this.state.sortedWorks[0].best_book.title,
-                        year: this.state.sortedWorks[0].original_publication_year["$t"],
-                        avgRating: this.state.sortedWorks[0].average_rating,
-                        cover: this.state.sortedWorks[0].best_book.img_url
+                        id: this.state.sortedByAvg[0].best_book.id["$t"],
+                        title: this.state.sortedByAvg[0].best_book.title,
+                        year: this.state.sortedByAvg[0].original_publication_year["$t"],
+                        avgRating: this.state.sortedByAvg[0].average_rating,
+                        cover: this.state.sortedByAvg[0].best_book.img_url
                     }
                 })
             // pass highBook and lowBook to getDescAndUrl for more info
@@ -177,11 +176,11 @@ class BookResults extends Component {
             book === this.state.highBook ?
                 this.setState({
                     highBook: {
-                        id: this.state.sortedWorks[this.state.sortedWorks.length - 1].best_book.id["$t"],
-                        title: this.state.sortedWorks[this.state.sortedWorks.length - 1].best_book.title,
-                        year: this.state.sortedWorks[this.state.sortedWorks.length - 1].original_publication_year["$t"],
-                        avgRating: this.state.sortedWorks[this.state.sortedWorks.length - 1].average_rating,
-                        cover: this.state.sortedWorks[this.state.sortedWorks.length - 1].best_book.img_url,
+                        id: this.state.sortedByAvg[this.state.sortedByAvg.length - 1].best_book.id["$t"],
+                        title: this.state.sortedByAvg[this.state.sortedByAvg.length - 1].best_book.title,
+                        year: this.state.sortedByAvg[this.state.sortedByAvg.length - 1].original_publication_year["$t"],
+                        avgRating: this.state.sortedByAvg[this.state.sortedByAvg.length - 1].average_rating,
+                        cover: this.state.sortedByAvg[this.state.sortedByAvg.length - 1].best_book.img_url,
                         url: link,
                         description: desc,
                         starRatingCount: ratings,
@@ -191,11 +190,11 @@ class BookResults extends Component {
                 }) :
                 this.setState({
                     lowBook: {
-                        id: this.state.sortedWorks[0].best_book.id["$t"],
-                        title: this.state.sortedWorks[0].best_book.title,
-                        year: this.state.sortedWorks[0].original_publication_year["$t"],
-                        avgRating: this.state.sortedWorks[0].average_rating,
-                        cover: this.state.sortedWorks[0].best_book.img_url,
+                        id: this.state.sortedByAvg[0].best_book.id["$t"],
+                        title: this.state.sortedByAvg[0].best_book.title,
+                        year: this.state.sortedByAvg[0].original_publication_year["$t"],
+                        avgRating: this.state.sortedByAvg[0].average_rating,
+                        cover: this.state.sortedByAvg[0].best_book.img_url,
                         url: link,
                         description: desc,
                         starRatingCount: ratings,
@@ -214,6 +213,14 @@ class BookResults extends Component {
             <div className="resultContainer clearfix">               
                 <div className="highBook bookHero">
                     <h2>{`${this.state.highBook.title}`}</h2>
+<<<<<<< HEAD
+                    <p dangerouslySetInnerHTML={{ __html: this.state.highBook.description }}></p>
+                    <p> Year: {`${this.state.highBook.year}`}</p>
+                    <p> Average Rating: {`${this.state.highBook.avgRating}`}</p>
+                    <p> Number of Star Rating: {`${this.state.highBook.starRatingCount}`}</p>
+                    <p>Number of Text Reviews: {`${this.state.highBook.textReviewCount}`}</p>
+                    <p>Talk Score: {`${this.state.highBook.talkScore}`}</p>
+=======
        
                     <div className="bookStats">
                         <p> Year: {`${this.state.highBook.year}`}</p>
@@ -231,6 +238,7 @@ class BookResults extends Component {
                         <p dangerouslySetInnerHTML={{ __html: this.state.highBook.description}}></p>         
                     </div>
 
+>>>>>>> 359ccacfe2e15449ecbb875b681a35a275cceb58
                 </div>
 
                     <Chart years={this.state.yearsArray} ratings={this.state.ratingsArray}/>
