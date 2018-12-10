@@ -19,13 +19,41 @@ class Chart extends Component{
                         }}
 
                         options = {{
+                            responsive: true,
+                            legend: {
+                                display:false
+                            },
+                            tooltips: {
+                                callbacks: {
+                                    label: (tooltipItem, data) => {
+                                        // data for manipulation
+                                        return data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index];
+                                    },
+                                },
+                            },
+                            title: {
+                                display: true,
+                                text: 'Average Rating per Publication Year'
+                            },
                             scales: {
                                 yAxes: [{
-                                        ticks: {
-                                            beginAtZero:true
-                                        }
+                                    ticks: {
+                                        beginAtZero: true,
+                                        max: 5
+                                    },
+                                    scaleLabel: {
+                                    display: true,
+                                    labelString: "Average Rating",
+                                    },
+                                }],
+                                xAxes: [{
+                                    scaleLabel: {
+                                        display: true,
+                                        labelString: "Original Publication Year",
+                                    },
                                 }]
                             }}
+                            
                          }
                     />
                 </div>
