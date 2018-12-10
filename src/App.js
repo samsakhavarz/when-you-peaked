@@ -33,6 +33,8 @@ class App extends Component {
  
   }
 
+  
+
   render() {
     return (
       <Router>
@@ -46,16 +48,15 @@ class App extends Component {
           
           </div>
 
-          <div className="backDrop">
+
             <div className="wrapper">
               <Route path="/bookresults" render={() => 
               <BookResults authorSubmit={this.state.authorSubmit} />} />       
             </div>                           
-          </div>
-          {/* <footer>
-            <p>Proudly made by Claire Valant, Mikey Couture and Sam Sakhavarz</p>
+
+          <footer>
             <p className="corpTitle">SabreHawk <span>&</span> Baggins est. 2018</p>
-          </footer> */}
+          </footer>
         </div>
       </Router>
     );
