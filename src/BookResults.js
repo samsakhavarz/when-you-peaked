@@ -75,8 +75,6 @@ class BookResults extends Component {
                     authorWorks.splice(i,1);
                 }
             }
-
-            console.log("this is author works",authorWorks);
             
             // sorts the array of works by average rating to get the highest and lowest rated books
             const sortedByAvg = authorWorks.sort((a, b) => {
@@ -88,8 +86,6 @@ class BookResults extends Component {
                 return a.original_publication_year["$t"] - b.original_publication_year["$t"]
             });
 
-            console.log("this is sortedByYear", sortedByYear);
-
             // initialize array of JUST years...
             const years = sortedByYear.map(book => {
                 return book.original_publication_year["$t"]
@@ -99,9 +95,6 @@ class BookResults extends Component {
             const avgRatings = sortedByYear.map(book => {
                 return book.average_rating
             })
-
-            console.log("this is years", years);
-            console.log("this is avgRatings", avgRatings);
 
             //set state with sorted array and chart data
             this.setState({
@@ -206,44 +199,11 @@ class BookResults extends Component {
     }
    
     render() {       
-        console.log(this.props.authorSubmit)
 
         return(
             
             <div className="resultContainer clearfix">               
-                <div className="highBook bookHero">
-                    <h2>{`${this.state.highBook.title}`}</h2>
-<<<<<<< HEAD
-                    <p dangerouslySetInnerHTML={{ __html: this.state.highBook.description }}></p>
-                    <p> Year: {`${this.state.highBook.year}`}</p>
-                    <p> Average Rating: {`${this.state.highBook.avgRating}`}</p>
-                    <p> Number of Star Rating: {`${this.state.highBook.starRatingCount}`}</p>
-                    <p>Number of Text Reviews: {`${this.state.highBook.textReviewCount}`}</p>
-                    <p>Talk Score: {`${this.state.highBook.talkScore}`}</p>
-=======
-       
-                    <div className="bookStats">
-                        <p> Year: {`${this.state.highBook.year}`}</p>
-                        <p> Average Rating: {`${this.state.highBook.avgRating}`}</p>
-                        <p> Number of Star Rating: {`${this.state.highBook.starRatingCount}`}</p>
-                        <p>Number of Text Reviews: {`${this.state.highBook.textReviewCount}`}</p>                 
-                    </div>
-
-                    <div className="talkScore">
-                        <p>Talk Score: {`${this.state.highBook.talkScore}`}</p>
-                    </div>
-
-                    <div className="description">
-                        <h3>Description: </h3>
-                        <p dangerouslySetInnerHTML={{ __html: this.state.highBook.description}}></p>         
-                    </div>
-
->>>>>>> 359ccacfe2e15449ecbb875b681a35a275cceb58
-                </div>
-
-                    <Chart years={this.state.yearsArray} ratings={this.state.ratingsArray}/>
-
-                <div className="lowBook bookHero">
+                
                     <h2>{`${this.state.lowBook.title}`}</h2>
 
                     <div className="bookStats">
@@ -261,13 +221,8 @@ class BookResults extends Component {
                         <h3>Description: </h3>
                         <p dangerouslySetInnerHTML={{ __html: this.state.lowBook.description }}></p>
                     </div>
-                </div>               
+                         
             </div>
-
-
-            
-               
-
         )
     }
 }
