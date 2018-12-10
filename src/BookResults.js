@@ -88,9 +88,9 @@ class BookResults extends Component {
             sortedByYear.sort((a, b) => {
                 let comparison = 0;
 
-                if (a.original_publication_year > b.original_publication_year) {
+                if (a.original_publication_year["$t"] > b.original_publication_year["$t"]) {
                     comparison = 1;
-                } else if (a.original_publication_year < b.original_publication_year) {
+                } else if (a.original_publication_year["$t"] < b.original_publication_year["$t"]) {
                     comparison = -1;
                 }
                 return comparison
