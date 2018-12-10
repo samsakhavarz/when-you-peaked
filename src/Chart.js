@@ -19,10 +19,17 @@ class Chart extends Component{
                         }}
 
                         options = {{
+                            responsive: true,
+                            title: {
+                                display: true,
+                                text: 'Average Rating per Publication Year'
+                            },
                             scales: {
                                 yAxes: [{
+                                    //label: 'Average Rating per Year',
                                         ticks: {
-                                            beginAtZero:true
+                                            beginAtZero: true,
+                                            max: 5
                                         }
                                 }]
                             }}

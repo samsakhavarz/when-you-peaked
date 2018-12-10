@@ -67,35 +67,45 @@ class BookResults extends Component {
             }
         }).then(res => {            
             // array of 20 works by searched author
-            const authorWorks = res.data.GoodreadsResponse.search.results.work
-
-            // delete any elements in authorWorks with a null/undefined year
-            for (let i = 0; i < authorWorks.length; i++) {
-                if (authorWorks[i].original_publication_year["nil"]) {
-                    authorWorks.splice(i,1);
-                }
-            }
+            const works = res.data.GoodreadsResponse.search.results.work
             
-            // sorts the array of works by average rating to get the highest and lowest rated books
-            const sortedByAvg = authorWorks.sort((a, b) => {
-                return a.average_rating - b.average_rating
-            });
+            // filter out any element in works that does not contain a valid publication year in two new arrays
+            const sortedByAvg = works.filter(work => work.original_publication_year.hasOwnProperty("$t"));
 
-            // sorts the array of works by year (to display on chart)
-            const sortedByYear = authorWorks.sort((a, b) => {
-                return a.original_publication_year["$t"] - b.original_publication_year["$t"]
-            });
+            const sortedByYear = works.filter(work => work.original_publication_year.hasOwnProperty("$t"));
+                               
+            sortedByAvg.sort((a,b) => {
+                let comparison = 0;
 
+                if (a.average_rating > b.average_rating ) {
+                    comparison = 1;
+                } else if (a.average_rating < b.average_rating) {
+                    comparison = -1;
+                }
+                return comparison
+            })
+
+            sortedByYear.sort((a, b) => {
+                let comparison = 0;
+
+                if (a.original_publication_year > b.original_publication_year) {
+                    comparison = 1;
+                } else if (a.original_publication_year < b.original_publication_year) {
+                    comparison = -1;
+                }
+                return comparison
+            })
+                    
             // initialize array of JUST years...
             const years = sortedByYear.map(book => {
                 return book.original_publication_year["$t"]
             })
-
+            
             // ...and an array of JUST avg ratings to pass to the Chart
             const avgRatings = sortedByYear.map(book => {
                 return book.average_rating
             })
-
+            
             //set state with sorted array and chart data
             this.setState({
                 sortedByAvg: sortedByAvg,
@@ -127,7 +137,6 @@ class BookResults extends Component {
             this.getDescAndUrl(this.state.lowBook);
         })
     }
-       
 
     // if the new search is different from the old search, then make another axios call and fire the whole process again
     componentDidUpdate(prevProps){
@@ -136,7 +145,7 @@ class BookResults extends Component {
         }
     }
 
-// method to get description and url from a different API request, called by handleSubmit
+    // method to get description and url from a different API request, called by handleSubmit
     getDescAndUrl = (book) => {
         // NEXT AXIOS TEST: find book description and url using id we got from other call
         axios({
@@ -199,11 +208,33 @@ class BookResults extends Component {
     }
    
     render() {       
-
         return(
             
             <div className="resultContainer clearfix">               
-                
+                <div className="highBook bookHero">
+                    <h2>{`${this.state.highBook.title}`}</h2>
+       
+                    <div className="bookStats">
+                        <p> Year: {`${this.state.highBook.year}`}</p>
+                        <p> Average Rating: {`${this.state.highBook.avgRating}`}</p>
+                        <p> Number of Star Rating: {`${this.state.highBook.starRatingCount}`}</p>
+                        <p>Number of Text Reviews: {`${this.state.highBook.textReviewCount}`}</p>                 
+                    </div>
+
+                    <div className="talkScore">
+                        <p>Talk Score: {`${this.state.highBook.talkScore}`}</p>
+                    </div>
+
+                    <div className="description">
+                        <h3>Description: </h3>
+                        <p dangerouslySetInnerHTML={{ __html: this.state.highBook.description}}></p>         
+                    </div>
+
+                </div>
+
+                    <Chart years={this.state.yearsArray} ratings={this.state.ratingsArray}/>
+
+                <div className="lowBook bookHero">
                     <h2>{`${this.state.lowBook.title}`}</h2>
 
                     <div className="bookStats">
@@ -221,7 +252,7 @@ class BookResults extends Component {
                         <h3>Description: </h3>
                         <p dangerouslySetInnerHTML={{ __html: this.state.lowBook.description }}></p>
                     </div>
-                         
+                </div>               
             </div>
         )
     }
