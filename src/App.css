@@ -131,15 +131,28 @@ legend, button::-moz-focus-inner, input::-moz-focus-inner {
   -webkit-box-sizing: border-box;
   box-sizing: border-box; }
 
+.visuallyhidden:not(:focus):not(:active) {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  border: 0;
+  padding: 0;
+  white-space: nowrap;
+  clip-path: inset(100%);
+  clip: rect(0 0 0);
+  overflow: hidden; }
+
 html {
   font-size: 62.5%; }
 
 body {
-  background: #fafafa; }
+  background: #fafafa;
+  font-size: 1rem; }
 
 .wrapper {
   max-width: 1280px;
-  width: 100%;
+  width: 90%;
   margin: 0 auto; }
 
 .title {
@@ -148,17 +161,12 @@ body {
   color: #ea4136;
   margin: 0; }
 
-h3 {
-  font-size: 1.8rem; }
-
 p {
   padding: 0 5%; }
 
 .mainHeader {
   text-align: center;
-  background: #fafafa;
-  padding: 10px;
-  height: 95vh; }
+  background: #fafafa; }
   .mainHeader .introCopy {
     margin-top: 0; }
   .mainHeader .introCopy,
@@ -180,32 +188,52 @@ p {
       background: #fafafa; }
   .mainHeader form {
     margin: 5% 0; }
-  .mainHeader .button {
-    border: 2px solid #ea4136;
-    background: #fafafa;
-    color: #ea4136;
-    padding: 10px;
-    width: 90%;
-    transition: background 0.3s, color 0.3s; }
-    .mainHeader .button:hover,
-    .mainHeader .button :focus {
-      color: #fafafa;
-      background: #ea4136; }
+
+.button, a.button {
+  text-decoration: none;
+  text-transform: uppercase;
+  border: 2px solid #ea4136;
+  background: #fafafa;
+  color: #ea4136;
+  padding: 10px;
+  width: 100%;
+  transition: background 0.3s, color 0.3s; }
+  .button:hover,
+  .button :focus {
+    color: #fafafa;
+    background: #ea4136; }
+
+a.button {
+  width: 100%;
+  display: inline-block;
+  color: #ea4136;
+  text-decoration: none;
+  background: none;
+  text-align: center; }
+  a.button:hover,
+  a.button :focus {
+    color: #fafafa;
+    background: #ea4136; }
 
 .resultContainer {
   width: 100%;
   font-family: "Lato", sans-serif;
   font-size: 1.5rem; }
+  .resultContainer h2 {
+    text-transform: uppercase;
+    color: #ea4136;
+    text-align: center; }
   .resultContainer .borderAccent {
     border: 2px solid #ea4136;
     position: relative;
-    padding: 8%;
+    padding: 2em;
     margin: 8% 0; }
-    .resultContainer .borderAccent h2 {
+    .resultContainer .borderAccent h3 {
+      font-size: 1.8rem;
+      text-transform: uppercase;
       font-size: 1.8rem;
       text-align: center;
       position: absolute;
-      background: #fafafa;
       color: #ea4136;
       top: -3%;
       left: 50%;
@@ -213,51 +241,59 @@ p {
       transform: translateX(-50%); }
     .resultContainer .borderAccent .chartTitle {
       top: -5%;
-      margin: 0; }
+      margin: 0;
+      display: none; }
   .resultContainer .bookHero {
-    width: 50%;
-    height: auto;
+    width: 100%;
+    height: 90vh;
     background: #fafafa;
     position: relative;
     z-index: 1;
     perspective: 1000px;
     cursor: pointer; }
-  .resultContainer .highNovel {
-    float: left; }
-  .resultContainer .lowNovel {
-    float: right; }
   .resultContainer .card {
     width: 100%;
-    height: 900px;
+    height: 80vh;
     transform-style: preserve-3d;
     transition: all 1.0s linear;
     text-align: center; }
-<<<<<<< HEAD
-  .resultContainer .bookHero:active .card {
-=======
   .resultContainer .flipper .card {
->>>>>>> b5ed4fb4e12db7913ef6f9870b34459386026f61
-    transform: rotateY(180deg);
-    box-shadow: -5px 5px 5px #aaa; }
+    transform: rotateY(180deg); }
   .resultContainer .noFlipper {
     transform: rotateY(0deg); }
   .resultContainer .front {
-    padding: 30px; }
+    padding: 30px;
+    background: #e0e2e2;
+    border-top-left-radius: 2px;
+    border-bottom-left-radius: 2px;
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+    box-shadow: 1px 1px #aaa9a9, 2px 2px white, 3px 3px #aaa9a9, 4px 4px white, 5px 5px #aaa9a9, 6px 6px white, 7px 7px #aaa9a9, 8px 8px white, 9px 9px #aaa9a9, 10px 10px white, 11px 11px #aaa9a9, 12px 12px white, 13px 13px #aaa9a9, 14px 14px white, 15px 15px #aaa9a9, 16px 16px white, 17px 17px #aaa9a9; }
   .resultContainer .face {
     position: absolute;
     width: 100%;
     height: 100%;
     backface-visibility: hidden; }
-  .resultContainer .face.back {
+  .resultContainer .back {
     display: block;
     transform: rotateY(180deg);
     box-sizing: border-box;
     color: #fafafa;
     text-align: center;
-    background-color: #aaa; }
+    background-color: #aaa;
+    border-top-right-radius: 2px;
+    border-bottom-right-radius: 2px;
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
+    box-shadow: -1px 1px #aaa9a9, -2px 2px white, -3px 3px #aaa9a9, -4px 4px white, -5px 5px #aaa9a9, -6px 6px white, -7px 7px #aaa9a9, -8px 8px white, -9px 9px #aaa9a9, -10px 10px white, -11px 11px #aaa9a9, -12px 12px white, -13px 13px #aaa9a9, -14px 14px white, -15px 15px #aaa9a9, -16px 16px white, -17px 17px #aaa9a9; }
   .resultContainer .chartContainer {
     margin: 20% 0; }
+  .resultContainer .talkScoreContainer {
+    height: 100px; }
+    .resultContainer .talkScoreContainer .description {
+      display: none; }
   .resultContainer .talkScore {
+    float: left;
     margin: 0 auto;
     background: #ea4136;
     width: 85px;
@@ -273,7 +309,7 @@ p {
       left: 50%;
       transform: translateX(-50%); }
   .resultContainer .bookStats {
-    padding: 2% 0; }
+    text-align: left; }
 
 footer {
   background: #838383;
@@ -282,6 +318,13 @@ footer {
   text-align: center;
   font-family: "Lato", sans-serif;
   letter-spacing: 1.7px;
-  padding: 2% 0; }
+  padding: 2% 0;
+  width: 100%;
+  position: absolute;
+  bottom: 0; }
   footer span {
     color: #ea4136; }
+
+@media only screen and (min-width: 760px) {
+  .bookHero {
+    float: left; } }
