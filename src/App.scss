@@ -133,12 +133,21 @@ p {
     }
 
     .bookHero {
-        width: 100%;
+        width: 50%;
         height: auto;
         background: $white;
         position: relative;
         z-index: 1;
         perspective: 1000px;  
+        cursor: pointer;
+    }
+
+    .highNovel{
+        float: left;
+    }
+
+    .lowNovel{
+        float: right;
     }
 
     .card {
@@ -149,9 +158,18 @@ p {
         text-align: center;
     }
 
-    .bookHero:active .card {
+    // .bookHero:hover .card {
+    //   transform: rotateY(180deg);
+    //   box-shadow: -5px 5px 5px #aaa;
+    // }
+
+    .flipper .card {
       transform: rotateY(180deg);
       box-shadow: -5px 5px 5px #aaa;
+    }
+
+    .noFlipper{
+      transform: rotateY(0deg);
     }
 
     .front {
