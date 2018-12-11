@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-//import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import './App.css';
 import Chart from "./Chart.js";
 import axios from "axios";
@@ -275,7 +275,11 @@ class BookResults extends Component {
                             <Chart years={this.state.yearsArray} ratings={this.state.ratingsArray} />
                         </div>
                     </div>
-                                 
+
+                <div className="button">
+                        <Link to={"/"} className="searchAgain">SEARCH AGAIN</Link>
+                </div>
+                                
             </div>
         )
     }

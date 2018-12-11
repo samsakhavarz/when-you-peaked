@@ -41,6 +41,8 @@ class App extends Component {
         <div className="App">
           <div className="wrapper">
             <header className="mainHeader">
+              
+
               <h1 className="title animated flipInX delay-1s">VERSVS</h1>
               <p class="introCopy">Compare your favourite author's highest and lowest rated books. See where they peaked and plunged throughout their literary career.</p>
               <Form handleSubmit={this.handleSubmit} handleChange={this.handleChange} authorSearch={this.state.authorSearch} /> 

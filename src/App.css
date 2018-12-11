@@ -180,17 +180,18 @@ p {
       background: #fafafa; }
   .mainHeader form {
     margin: 5% 0; }
-  .mainHeader .button {
-    border: 2px solid #ea4136;
-    background: #fafafa;
-    color: #ea4136;
-    padding: 10px;
-    width: 90%;
-    transition: background 0.3s, color 0.3s; }
-    .mainHeader .button:hover,
-    .mainHeader .button :focus {
-      color: #fafafa;
-      background: #ea4136; }
+
+.button {
+  border: 2px solid #ea4136;
+  background: #fafafa;
+  color: #ea4136;
+  padding: 10px;
+  width: 90%;
+  transition: background 0.3s, color 0.3s; }
+  .button:hover,
+  .button :focus {
+    color: #fafafa;
+    background: #ea4136; }
 
 .resultContainer {
   width: 100%;
@@ -270,6 +271,9 @@ p {
       transform: translateX(-50%); }
   .resultContainer .bookStats {
     padding: 2% 0; }
+
+a {
+  text-align: center; }
 
 footer {
   background: #838383;

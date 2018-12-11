@@ -85,6 +85,7 @@ p {
         margin: 5% 0;
     }
 
+}
 //BUTTON 
     .button {
         border: 2px solid $accentColor;
@@ -99,7 +100,10 @@ p {
             background: $accentColor;
         }
     }
-}
+
+    .searchAgain {
+
+    }
 
 
 //BOOK RESULTS
@@ -222,7 +226,9 @@ p {
    
 }
 
-
+a {
+    text-align: center;
+}
 //FOOTER
 footer {
     background:$darkGrey;
