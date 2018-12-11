@@ -215,21 +215,28 @@ p {
       top: -5%;
       margin: 0; }
   .resultContainer .bookHero {
-    width: 100%;
+    width: 50%;
     height: auto;
     background: #fafafa;
     position: relative;
     z-index: 1;
-    perspective: 1000px; }
+    perspective: 1000px;
+    cursor: pointer; }
+  .resultContainer .highNovel {
+    float: left; }
+  .resultContainer .lowNovel {
+    float: right; }
   .resultContainer .card {
     width: 100%;
     height: 900px;
     transform-style: preserve-3d;
     transition: all 1.0s linear;
     text-align: center; }
-  .resultContainer .bookHero:hover .card {
+  .resultContainer .flipper .card {
     transform: rotateY(180deg);
     box-shadow: -5px 5px 5px #aaa; }
+  .resultContainer .noFlipper {
+    transform: rotateY(0deg); }
   .resultContainer .front {
     padding: 30px; }
   .resultContainer .face {

@@ -36,7 +36,8 @@ class BookResults extends Component {
                 starRatingCount: 0,
                 textReviewCount: 0,
                 talkScore: 0
-            }
+            },
+            active: false
         })
     }
 
@@ -208,15 +209,23 @@ class BookResults extends Component {
                 })
         })
     }
-   
-    render() {       
+
+   onClick = (e) => {
+       this.setState({ 
+           active: !this.state.active
+        });
+        console.log(this.state.active);
+    }
+
+    render() {      
         return(           
             <div className="resultContainer clearfix"> 
-                             
-                    <div className="bookHero borderAccent">
+                         
+                <div className="bookHero highNovel borderAccent">
                     <h2>HIGHEST RATED</h2>
-                        <div className="card">
-                            <div className="front face">
+                    <div className={(this.state.active) ? 'flipper' : 'noFlipper'}>
+                    <div className="card">
+                        <div className="front face" onClick={this.onClick}>
                                 <h3>{`${this.state.highBook.title}`}</h3>           
                                 <div className="bookStats">
                                     <p> Year: {`${this.state.highBook.year}`}</p>
@@ -229,21 +238,16 @@ class BookResults extends Component {
                                 </div>
                             </div>
 
-                            <div className="back face center">
+                            <div onClick={this.onClick} className={(this.state.active) ? 'noFlipper back face center' : 'flipper back face center'}>
                                 <h3>Description: </h3>
                                 <p dangerouslySetInnerHTML={{ __html: this.state.highBook.description}}></p>    
                             </div>
                         </div>
                     </div>
+                    </div>
 
-                <div className="borderAccent">
-                <h2 className="chartTitle">WHEN THEY PEAKED</h2>
-                    <div className="chartContainer">
-                        <Chart years={this.state.yearsArray} ratings={this.state.ratingsArray} />                                  
-                    </div>              
-                </div>
-
-                    <div className="bookHero borderAccent">
+                    {/* LOW BOOK */}
+                    <div className="bookHero highNovel borderAccent">
                         <h2>LOWEST RATED</h2>
                         <div className="card">
                             <div className="front face">
@@ -264,6 +268,13 @@ class BookResults extends Component {
                             </div>
                         </div> 
                     </div> 
+
+                    <div className="borderAccent">
+                        <h2 className="chartTitle">WHEN THEY PEAKED</h2>
+                        <div className="chartContainer">
+                            <Chart years={this.state.yearsArray} ratings={this.state.ratingsArray} />
+                        </div>
+                    </div>
                                  
             </div>
         )
