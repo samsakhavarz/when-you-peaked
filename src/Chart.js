@@ -23,14 +23,14 @@ class Chart extends Component{
                             legend: {
                                 display:false
                             },
-                            tooltips: {
-                                callbacks: {
-                                    label: (tooltipItem, data) => {
-                                        // data for manipulation
-                                        return data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index];
-                                    },
-                                },
-                            },
+                            // tooltips: {
+                            //     callbacks: {
+                            //         label: (tooltipItem, data) => {
+                            //             // data for manipulation
+                            //             return data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index];
+                            //         },
+                            //     },
+                            // },
                             title: {
                                 display: true,
                                 text: 'Average Rating per Publication Year'

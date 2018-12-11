@@ -4,9 +4,6 @@ article,aside,details,figcaption,figure,footer,header,hgroup,nav,section,summary
 
 * { -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box; }
 
-// .App {
-//     height: 100vh;
-// }
 
 //COLOURS 
 $accentColor: #ea4136;
@@ -14,48 +11,62 @@ $lightGrey: #e0e2e2;
 $darkGrey: #838383;
 $white: #fafafa;
 
+
 //FONTS 
 $titleFont: 'Poppins', sans-serif;
 $text-font: 'Lato', sans-serif;
 
+//BASE STYLES
 html {
     font-size: 62.5%;    
 }
 
-// body {
-//     background: #e0e2e2;
-// }
+body {
+    background: $white;
+}
+
 
 //LAYOUT
 .wrapper {
-    max-width: 1080px;
+    max-width: 1280px;
     width: 100%;
     margin: 0 auto;
 }
 
+
 //TYPOGRAPHY
 .title {
-    font-size: 5rem;
+    font-size: 5.5rem;
     font-family: $titleFont;
     color: $accentColor;
-}
-
-h3 {
     margin: 0;
 }
 
+h3 {
+    font-size: 1.8rem;
+}
+
+p {
+    padding: 0 5%;
+}
 
 //HEADER
 .mainHeader {
     text-align: center;
     background: $white;
     padding: 10px;
-    margin-bottom: 5%;
+    height: 95vh;
+
+    .introCopy {
+        margin-top: 0;
+    }
+
 
     .introCopy,
     form {
         font-size: 1.8rem;
         font-family: $text-font;
+        display: block;
 
         label {
             font-weight: 700;
@@ -70,9 +81,9 @@ h3 {
             background: $white;
         }
     }
-    // form {
-    //     // margin: 5% 0;
-    // }
+    form {
+        margin: 5% 0;
+    }
 
 //BUTTON 
     .button {
@@ -92,71 +103,119 @@ h3 {
 
 
 //BOOK RESULTS
-// .backDrop {
-//     // background: linear-gradient(to bottom, rgba(255,255,255,0.4), rgba(255,255,255,0.4)), url(./alfons-morales-410757-unsplash.jpg);
-//     background-repeat: no-repeat;
-//     background-position: cover;
-// }
-
 .resultContainer {
     width: 100%;
     font-family: $text-font;
-    font-size: 1.8rem;
-    border-top: 2px solid $darkGrey;
-    padding-bottom: 5%;
+    font-size: 1.5rem;
 
-}
+    .borderAccent {
+        border: 2px solid $accentColor;
+        position: relative;
+        padding: 8%;
+        margin: 8% 0;
 
-.bookHero {
-    width: 100%;
-    padding: 20px 25px;
-    background: $white;  
-}
+        h2 {
+            font-size: 1.8rem;
+            text-align: center;
+            position: absolute; 
+            background: $white;
+            color: $accentColor;  
+            top: -3%;
+            left: 50%;
+            padding: 0 10px;
+            transform: translateX(-50%);
+        }
 
-.highBook {
-    border-bottom: 2px solid $accentColor;
-}
-.bookStats {
-    text-align: center;
-}
-
-
-.talkScore {
-    margin: 0 2% 0 0;
-    float: left;
-    background: $accentColor;
-    width: 75px;
-    height: 75px;
-    border-radius: 50%;
-    color: $white;
-    font-size: 1.4rem;
-    position: relative;
-    p {
-        position: absolute;
-        top: 0;
-        left: 50%;
-        transform: translateX(-50%);
+        .chartTitle {
+            top: -5%;
+            margin: 0;
+        }
     }
+
+    .bookHero {
+        width: 100%;
+        height: auto;
+        background: $white;
+        position: relative;
+        z-index: 1;
+        perspective: 1000px;  
+    }
+
+    .card {
+        width: 100%;
+        height: 900px;
+        transform-style: preserve-3d;
+        transition: all 1.0s linear;
+        text-align: center;
+    }
+
+    .bookHero:active .card {
+      transform: rotateY(180deg);
+      box-shadow: -5px 5px 5px #aaa;
+    }
+
+    .front {
+        padding: 30px;
+    }
+
+    .face {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      backface-visibility: hidden;
+    }
+
+    .face.back {
+      display: block;
+      transform: rotateY(180deg);
+      box-sizing: border-box;
+      color: $white;
+      text-align: center;
+      background-color: #aaa;
+    }
+
+    .chartContainer {
+        margin: 20% 0;
+    }
+
+
+// TALK SCORE ICONOGRAPHY
+    .talkScore {
+        margin: 0 auto;
+        background: $accentColor;
+        width: 85px;
+        height: 85px;
+        border-radius: 50%;
+        color: $white;
+        font-weight: 700;
+        font-size: 1.5rem;
+        position: relative;
+        p {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+    }
+
+    .bookStats {
+        padding: 2% 0;
+    }
+   
 }
 
 
 //FOOTER
-// footer {
-//     border-top: 2px solid $accentColor;
-//     background:$darkGrey;
-//     text-align: center;
-//     font-size: 1.6rem;
-//     font-family: $text-font;
-//     letter-spacing: 1.5px;
-//     padding: 2% 0;
-//     position: absolute;
-//     bottom: 0;
-
-    
-    
-//     width: 100%;
-//     span {
-//         color: $accentColor;
-//         font-size: 2rem;
-//     }
-// }
+footer {
+    background:$darkGrey;
+    color: $white;
+    font-weight: 700;
+    text-align: center;
+    font-family: $text-font;
+    letter-spacing: 1.7px;
+    padding: 2% 0;
+       
+    span {
+        color: $accentColor;
+    }
+}

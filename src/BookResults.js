@@ -4,7 +4,7 @@ import './App.css';
 import Chart from "./Chart.js";
 import axios from "axios";
 import Qs from 'qs';
-import MDSpinner from "react-md-spinner";
+
 
 class BookResults extends Component {
     constructor() {
@@ -39,6 +39,8 @@ class BookResults extends Component {
             }
         })
     }
+
+        
 
     componentDidMount(){
         this.getData(this.props.authorSubmit);
@@ -208,51 +210,61 @@ class BookResults extends Component {
     }
    
     render() {       
-        return(
-            
-            <div className="resultContainer clearfix">               
-                <div className="highBook bookHero">
-                    <h2>{`${this.state.highBook.title}`}</h2>
-       
-                    <div className="bookStats">
-                        <p> Year: {`${this.state.highBook.year}`}</p>
-                        <p> Average Rating: {`${this.state.highBook.avgRating}`}</p>
-                        <p> Number of Star Rating: {`${this.state.highBook.starRatingCount}`}</p>
-                        <p>Number of Text Reviews: {`${this.state.highBook.textReviewCount}`}</p>                 
+        return(           
+            <div className="resultContainer clearfix"> 
+                             
+                    <div className="bookHero borderAccent">
+                    <h2>HIGHEST RATED</h2>
+                        <div className="card">
+                            <div className="front face">
+                                <h3>{`${this.state.highBook.title}`}</h3>           
+                                <div className="bookStats">
+                                    <p> Year: {`${this.state.highBook.year}`}</p>
+                                    <p> Average Rating: {`${this.state.highBook.avgRating}`}</p>
+                                    <p> Number of Star Rating: {`${this.state.highBook.starRatingCount}`}</p>
+                                    <p>Number of Text Reviews: {`${this.state.highBook.textReviewCount}`}</p>                 
+                                </div>
+                                <div className="talkScore">
+                                    <p>Talk Score: {`${this.state.highBook.talkScore}`}</p>
+                                </div>
+                            </div>
+
+                            <div className="back face center">
+                                <h3>Description: </h3>
+                                <p dangerouslySetInnerHTML={{ __html: this.state.highBook.description}}></p>    
+                            </div>
+                        </div>
                     </div>
 
-                    <div className="talkScore">
-                        <p>Talk Score: {`${this.state.highBook.talkScore}`}</p>
-                    </div>
-
-                    <div className="description">
-                        <h3>Description: </h3>
-                        <p dangerouslySetInnerHTML={{ __html: this.state.highBook.description}}></p>         
-                    </div>
-
+                <div className="borderAccent">
+                <h2 className="chartTitle">WHEN THEY PEAKED</h2>
+                    <div className="chartContainer">
+                        <Chart years={this.state.yearsArray} ratings={this.state.ratingsArray} />                                  
+                    </div>              
                 </div>
 
-                    <Chart years={this.state.yearsArray} ratings={this.state.ratingsArray}/>
-
-                <div className="lowBook bookHero">
-                    <h2>{`${this.state.lowBook.title}`}</h2>
-
-                    <div className="bookStats">
-                        <p>Year: {`${this.state.lowBook.year}`}</p>
-                        <p>Average Rating: {`${this.state.lowBook.avgRating}`}</p>
-                        <p>Number of Star Rating: {`${this.state.lowBook.starRatingCount}`}</p>
-                        <p>Number of Text Reviews: {`${this.state.lowBook.textReviewCount}`}</p>         
-                    </div>
-
-                    <div className="talkScore">
-                        <p>Talk Score: {`${this.state.lowBook.talkScore}`}</p>                  
-                    </div>
-
-                    <div className="description">
-                        <h3>Description: </h3>
-                        <p dangerouslySetInnerHTML={{ __html: this.state.lowBook.description }}></p>
-                    </div>
-                </div>               
+                    <div className="bookHero borderAccent">
+                        <h2>LOWEST RATED</h2>
+                        <div className="card">
+                            <div className="front face">
+                                <h3>{`${this.state.lowBook.title}`}</h3>
+                                <div className="bookStats">
+                                    <p>Year: {`${this.state.lowBook.year}`}</p>
+                                    <p>Average Rating: {`${this.state.lowBook.avgRating}`}</p>
+                                    <p>Number of Star Rating: {`${this.state.lowBook.starRatingCount}`}</p>
+                                    <p>Number of Text Reviews: {`${this.state.lowBook.textReviewCount}`}</p>
+                                </div>
+                                <div className="talkScore">
+                                    <p>Talk Score: {`${this.state.lowBook.talkScore}`}</p>
+                                </div>                   
+                            </div>  
+                            <div className="back face center">
+                                <h3>Description: </h3>
+                                <p dangerouslySetInnerHTML={{ __html: this.state.lowBook.description }}></p>
+                            </div>
+                        </div> 
+                    </div> 
+                                 
             </div>
         )
     }
