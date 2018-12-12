@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import './App.css';
 import './App.scss';
-import axios from "axios";
-import Qs from 'qs';
 import BookResults from './BookResults.js';
 import Form from './Form.js';
 
