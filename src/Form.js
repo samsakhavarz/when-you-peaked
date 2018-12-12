@@ -9,8 +9,8 @@ class Form extends Component {
 // taking in the handlesubmit from parent app.js, using a callback function to pass back in the history
             <form onSubmit={(e)=> this.props.handleSubmit(e, this.props.history)} action="">
                 <label className="visuallyhidden" htmlFor="text">Enter Author Name: </label>
-                <input className="searchField" onChange={this.props.handleChange} value={this.props.authorSearch} type="text" id="authorSearch" placeholder="enter author name" required />
-                <input className="button" type="submit" value="SEARCH" id="#" />
+                <input className="searchField" onChange={this.props.handleChange} value={this.props.authorSearch} type="text" id="authorSearch" placeholder="Enter author name" required />
+                <input className="button" type="submit" value="SEARCH"/>
             </form>
         )
     }
