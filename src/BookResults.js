@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import { Link, withRouter, Redirect} from 'react-router-dom';
 import './App.css';
 import Chart from "./Chart.js";
 import axios from "axios";
@@ -48,11 +48,11 @@ class BookResults extends Component {
 
     componentDidMount() {
         this.getData(this.props.authorSubmit);
-        scrollToElement('.card', {
-            offset: -200,
-            ease: 'outCube',
-            duration: 2000
-        });
+        // scrollToElement('.card', {
+        //     offset: -200,
+        //     ease: 'outCube',
+        //     duration: 2000
+        // });
     }
 
     //  first Axios call, setting
@@ -75,9 +75,22 @@ class BookResults extends Component {
                 },
                 xmlToJSON: true
             }
-        }).then(res => {           
+        }).then(res => {      
+
+            scrollToElement('.card', {
+                offset: -200,
+                ease: 'outCube',
+                duration: 2000
+            });
+            
             // array of 20 works by searched author
-            const works = res.data.GoodreadsResponse.search.results.work            
+            const works = res.data.GoodreadsResponse.search.results.work  
+            
+            // handle refreshes in chrome!!
+            // if (works === undefined) {
+            //     //history.push("/");
+            //     <Redirect to={{pathname:"/"}} />
+            // }
             
             // filter out any element in works that does not contain a valid publication year in two new arrays
             const sortedByAvg = works.filter(work => work.original_publication_year.hasOwnProperty("$t"));
@@ -244,15 +257,16 @@ class BookResults extends Component {
                                 <div className="bookStats">
                                     <h4>{`${this.state.highBook.title}`}</h4> 
 
-                                    <p> Year: {`${this.state.highBook.year}`}</p>
-                                    <p> Average Rating: {`${this.state.highBook.avgRating}`}</p>
-                                    <p> Number of Star Rating: {`${this.state.highBook.starRatingCount}`}</p>
-                                    <p>Number of Text Reviews: {`${this.state.highBook.textReviewCount}`}</p>    
+                                    <p> Year: <span>{`${this.state.highBook.year}`}</span></p>
+                                    <p> Average Rating: <span>{`${this.state.highBook.avgRating}`}</span></p>
+                                    <p> Number of Star Rating: <span>{`${this.state.highBook.starRatingCount}`}</span></p>
+                                    <p>Number of Text Reviews: <span>{`${this.state.highBook.textReviewCount}`}</span></p>     
                                 </div>
 
                                 <div className="talkScoreContainer clearfix">
                                     <div className="talkScore" onClick={this.onClick} id="activeThree" value={this.state.activeThree}>
-                                        <p>Talk Score: {`${this.state.highBook.talkScore}`}</p>
+                                        <p>{`${this.state.highBook.talkScore}`}</p>
+                                        <i className="fas fa-question"></i>
                                     </div>
                                 </div>
 
@@ -279,14 +293,15 @@ class BookResults extends Component {
                                 <div className="bookStats">
                                     <h4>{`${this.state.lowBook.title}`}</h4>
 
-                                    <p>Year: {`${this.state.lowBook.year}`}</p>
-                                    <p>Average Rating: {`${this.state.lowBook.avgRating}`}</p>
-                                    <p>Number of Star Rating: {`${this.state.lowBook.starRatingCount}`}</p>
-                                    <p>Number of Text Reviews: {`${this.state.lowBook.textReviewCount}`}</p>
+                                    <p> Year: <span>{`${this.state.lowBook.year}`}</span></p>
+                                    <p> Average Rating: <span>{`${this.state.lowBook.avgRating}`}</span></p>
+                                    <p> Number of Star Rating: <span>{`${this.state.lowBook.starRatingCount}`}</span></p>
+                                    <p>Number of Text Reviews: <span>{`${this.state.lowBook.textReviewCount}`}</span></p>  
                                 </div>
                                 <div className="talkScoreContainer clearfix">
                                     <div className={"talkScore"} onClick={this.onClick} id="activeFour">
-                                        <p>Talk Score: {`${this.state.lowBook.talkScore}`}</p>
+                                        <p>{`${this.state.lowBook.talkScore}`}</p>
+                                        <i className="fas fa-question"></i>
                                     </div>
                                 </div>
 
@@ -316,4 +331,4 @@ class BookResults extends Component {
         )
     }
 }
-export default BookResults;
+export default withRouter(BookResults);

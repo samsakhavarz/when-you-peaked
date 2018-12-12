@@ -189,7 +189,7 @@ p {
   font-style: italic;
   text-align: center;
   background: #fafafa;
-  padding: 10px; }
+  padding: 5px; }
 
 .button, a.button {
   text-decoration: none;
@@ -197,8 +197,9 @@ p {
   border: 2px solid #ea4136;
   background: #fafafa;
   color: #ea4136;
-  padding: 10px;
+  padding: 5px;
   width: 100%;
+  min-width: 161px;
   transition: background 0.3s, color 0.3s; }
   .button:hover,
   .button :focus {
@@ -206,6 +207,7 @@ p {
     background: #ea4136; }
 
 .descriptionButton, .returnButton {
+  min-width: 161px;
   text-decoration: none;
   text-transform: uppercase;
   border: 2px solid #ea4136;
@@ -216,12 +218,13 @@ p {
   transition: background 0.3s, color 0.3s; }
 
 a.button {
-  width: 100%;
-  display: inline-block;
+  width: 161px;
   color: #ea4136;
   text-decoration: none;
   background: none;
-  text-align: center; }
+  text-align: center;
+  display: block;
+  margin: 0 auto 5% auto; }
   a.button:hover,
   a.button :focus {
     color: #fafafa;
@@ -242,8 +245,8 @@ a.button {
     position: absolute;
     color: #ea4136;
     background: #fafafa;
-    width: 65%;
-    top: -6.5%;
+    width: 161px;
+    top: -32px;
     left: 50%;
     padding: 0 10px;
     transform: translateX(-50%); }
@@ -251,7 +254,7 @@ a.button {
     border: 2px solid #ea4136;
     position: relative;
     padding: 2em;
-    margin: 8% 0; }
+    margin: 3% 0; }
     .resultContainer .borderAccent .chartTitle {
       top: -5%;
       margin: 0;
@@ -263,8 +266,10 @@ a.button {
     position: relative;
     z-index: 1;
     perspective: 1000px; }
+  .resultContainer span {
+    color: #ea4136; }
   .resultContainer .card {
-    width: 100%;
+    width: 98%;
     height: 78vh;
     transform-style: preserve-3d;
     transition: all 1.0s linear;
@@ -286,12 +291,14 @@ a.button {
     position: absolute;
     width: 100%;
     height: 100%;
-    backface-visibility: hidden; }
+    backface-visibility: hidden;
+    border: 1px solid #838383;
+    background-image: linear-gradient(to top, #8f8f8f80, white); }
   .resultContainer .back {
     display: block;
     transform: rotateY(180deg);
     box-sizing: border-box;
-    color: #fafafa;
+    color: black;
     text-align: center;
     background-color: #aaa;
     border-top-right-radius: 2px;
@@ -301,28 +308,36 @@ a.button {
     box-shadow: -1px 1px #aaa9a9, -2px 2px white, -3px 3px #aaa9a9, -4px 4px white, -5px 5px #aaa9a9, -6px 6px white, -7px 7px #aaa9a9, -8px 8px white, -9px 9px #aaa9a9, -10px 10px white, -11px 11px #aaa9a9, -12px 12px white, -13px 13px #aaa9a9, -14px 14px white, -15px 15px #aaa9a9, -16px 16px white, -17px 17px #aaa9a9;
     overflow: scroll;
     overflow-x: hidden;
-    height: 78vh; }
+    height: 79vh; }
   .resultContainer .chartContainer {
     margin: 20% 0; }
   .resultContainer .talkScoreContainer {
     height: 100px; }
   .resultContainer .talkScore {
     cursor: pointer;
-    float: left;
-    margin: 10% 0 10% 25%;
+    display: block;
+    margin: 10% auto 10% auto;
     background: #ea4136;
-    width: 85px;
-    height: 85px;
+    width: 65px;
+    height: 65px;
     border-radius: 50%;
     color: #fafafa;
     font-weight: 700;
     font-size: 1.5rem;
     position: relative;
     transition: box-shadow 0.3s; }
+    .resultContainer .talkScore .fa-question {
+      pointer-events: none;
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      top: 65%;
+      font-size: 1.3rem; }
     .resultContainer .talkScore:hover {
       box-shadow: 0px 0px 10px #ea4136; }
     .resultContainer .talkScore p {
       position: absolute;
+      font-size: 1.7rem;
       top: 0;
       left: 50%;
       transform: translateX(-50%);
@@ -331,9 +346,10 @@ a.button {
     text-align: left; }
     .resultContainer .bookStats h4 {
       text-transform: uppercase;
-      font-size: 1.3rem;
+      font-size: 1.5rem;
       text-align: center;
-      color: #ea4136; }
+      color: #ea4136;
+      margin: 10px auto; }
     .resultContainer .bookStats p {
       margin: 0; }
 
@@ -372,18 +388,28 @@ footer {
   form .searchField {
     width: 65%; }
   input.button {
-    width: 65%; } }
+    width: 65%; }
+  a.button {
+    width: 70%; }
+  .bookStats {
+    line-height: 1.8; } }
 
 @media only screen and (min-width: 760px) {
-  .bookHero {
+  .resultContainer .bookHero {
+    width: 48%;
     float: left; }
+  .bookHero:first-of-type {
+    border-right: none; }
   .title {
     font-size: 7rem; }
   form .searchField {
     width: 50%; }
   input.button {
     width: 20%;
-    margin-left: 5%; } }
+    margin-left: 5%; }
+  .resultContainer .talkScore {
+    width: 85px;
+    height: 85px; } }
 
 @media only screen and (min-width: 900px) {
   .title {
@@ -391,4 +417,8 @@ footer {
 
 @media only screen and (min-width: 1080px) {
   .mainHeader .introCopy {
-    font-size: 2rem; } }
+    font-size: 2rem; }
+  .resultContainer .bookStats h4 {
+    font-size: 1.7rem; }
+  .resultContainer .talkScore {
+    margin: 20% 0 20% 35%; } }
