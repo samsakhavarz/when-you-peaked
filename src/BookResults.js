@@ -40,7 +40,9 @@ class BookResults extends Component {
                 talkScore: 0
             },
             activeOne: false,
-            activeTwo: false
+            activeTwo: false,
+            activeThree: false,
+            activeFour: false
         })
     }   
 
@@ -215,18 +217,19 @@ class BookResults extends Component {
         })
     }
 
-    // if we have time, create a dynamic function for one handle click using e.target.id and/or e.target.value
-   onClickOne = (e) => {       
-       this.setState({ 
-           activeOne: !this.state.activeOne
-        });
+    // a dynamic function for ALL handle clicks using e.target.id to update state
+    onClick = (e) => {
+        console.log(this.state[e.target.id]);
+        
+        this.setState({
+            [e.target.id]: !(this.state[e.target.id])
+        })  
     }
 
-    onClickTwo = (e) => {        
-        this.setState({
-            activeTwo: !this.state.activeTwo
-        });
-    }
+    // error handling for Chrome ?????
+    // onUnload() {
+
+    // }
 
     render() {      
         return(           
@@ -237,25 +240,31 @@ class BookResults extends Component {
 
                     <div className={(this.state.activeOne) ? 'flipper' : 'noFlipper'}>
                         <div className="card">
-                            <div className="front face" onClick={this.onClickOne}>
-                                <h3>{`${this.state.highBook.title}`}</h3>           
+                            <div className="front face">          
                                 <div className="bookStats">
+                                    <h4>{`${this.state.highBook.title}`}</h4> 
+
                                     <p> Year: {`${this.state.highBook.year}`}</p>
                                     <p> Average Rating: {`${this.state.highBook.avgRating}`}</p>
                                     <p> Number of Star Rating: {`${this.state.highBook.starRatingCount}`}</p>
                                     <p>Number of Text Reviews: {`${this.state.highBook.textReviewCount}`}</p>    
                                 </div>
+
                                 <div className="talkScoreContainer clearfix">
-                                    <div className="talkScore">
+                                    <div className="talkScore" onClick={this.onClick} id="activeThree" value={this.state.activeThree}>
                                         <p>Talk Score: {`${this.state.highBook.talkScore}`}</p>
                                     </div>
-                                    <p className="description">How much are readers discussing this book? This is the ratio of text reviews to starred ratings, multiplied by one hundred.</p>
                                 </div>
+
+                                <p className={(this.state.activeThree) ? "show description" : "hidden description"}>How much are readers discussing this book? This is the ratio of text reviews to starred ratings, multiplied by one hundred.</p>
+
+                                <button className="descriptionButton" id="activeOne" onClick={this.onClick}>Description</button>
                             </div>
 
-                            <div onClick={this.onClickOne} className={(this.state.activeOne) ? 'noFlipper back face center' : 'flipper back face center'}>
-                                    <h3>Description: </h3>
-                                    <p dangerouslySetInnerHTML={{ __html: this.state.highBook.description}}></p>    
+                            <div onClick={this.onClick} className={(this.state.activeOne) ? 'noFlipper back face center' : 'flipper back face center'}>
+                                    <h4>Description: </h4>
+                                    <p className="description" dangerouslySetInnerHTML={{ __html: this.state.highBook.description}}></p> 
+                                    <button className="returnButton" id="activeOne" onClick={this.onClick}>Return</button>    
                             </div>
                         </div>
                     </div>
@@ -266,25 +275,31 @@ class BookResults extends Component {
                     <h3>Lowest Rated</h3>
                     <div className={(this.state.activeTwo) ? 'flipper' : 'noFlipper'}>
                         <div className="card">
-                            <div className="front face" onClick={this.onClickTwo}>
-                                <h3>{`${this.state.lowBook.title}`}</h3>
+                            <div className="front face">
                                 <div className="bookStats">
+                                    <h4>{`${this.state.lowBook.title}`}</h4>
+
                                     <p>Year: {`${this.state.lowBook.year}`}</p>
                                     <p>Average Rating: {`${this.state.lowBook.avgRating}`}</p>
                                     <p>Number of Star Rating: {`${this.state.lowBook.starRatingCount}`}</p>
                                     <p>Number of Text Reviews: {`${this.state.lowBook.textReviewCount}`}</p>
                                 </div>
                                 <div className="talkScoreContainer clearfix">
-                                    <div className="talkScore">
+                                    <div className={"talkScore"} onClick={this.onClick} id="activeFour">
                                         <p>Talk Score: {`${this.state.lowBook.talkScore}`}</p>
                                     </div>
-                                    <p className="description">How much are readers discussing this book? This is the ratio of text reviews to starred ratings, multiplied by one hundred.</p>
                                 </div>
+
+                                <p className={(this.state.activeFour) ? "show description" : "hidden description"}>How much are readers discussing this book? This is the ratio of text reviews to starred ratings, multiplied by one hundred.</p>
+
+                                <button className="descriptionButton" id="activeTwo" onClick={this.onClick}>Description</button>
                             </div>
-                        <div className={(this.state.activeTwo) ? 'noFlipper back face center' : 'flipper back face center'} onClick={this.onClickTwo}>
-                            <h3>Description: </h3>
-                            <p dangerouslySetInnerHTML={{ __html: this.state.lowBook.description }}></p>
-                        </div>
+
+                             <div className={(this.state.activeTwo) ? 'noFlipper back face center' : 'flipper back face center'} onClick={this.onClickTwo}>
+                                <h4>Description: </h4>
+                                <p className="description" dangerouslySetInnerHTML={{ __html: this.state.lowBook.description }}></p>
+                                <button className="returnButton" id="activeTwo" onClick={this.onClick}>Return</button>
+                            </div>
                         </div> 
                     </div>
                 </div> 
