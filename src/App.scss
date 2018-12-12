@@ -82,7 +82,7 @@ p {
     font-style: italic;
     text-align: center;
     background: $white;
-    padding: 10px;
+    padding: 5px;
 }
 
 //BUTTONS
@@ -93,8 +93,9 @@ p {
     border: 2px solid $accentColor;
     background: $white;
     color: $accentColor;
-    padding: 10px;
+    padding: 5px;
     width: 100%;
+    min-width: 161px;
     transition: background 0.3s, color 0.3s;
     &:hover,
     :focus {
@@ -105,6 +106,7 @@ p {
 
     // buttons to flip book to see description
     .descriptionButton, .returnButton{
+        min-width: 161px;
         text-decoration: none;
         text-transform: uppercase;
         border: 2px solid #ea4136;
@@ -118,12 +120,13 @@ p {
     // button to start a new search
    a.button {
        @extend .button;
-        width: 100%;
-        display: inline-block;
+        width: 161px;
         color: $accentColor;
         text-decoration: none;
         background: none;
         text-align: center;
+        display: block;
+        margin: 0 auto 5% auto;
         &:hover,
         :focus {
             color: $white;
@@ -151,8 +154,8 @@ p {
             position: absolute; 
             color: $accentColor;  
             background: $white;
-            width: 65%;
-            top: -6.5%;
+            width: 161px;
+            top: -32px;
             left: 50%;
             padding: 0 10px;
             transform: translateX(-50%);
@@ -162,7 +165,7 @@ p {
         border: 2px solid $accentColor;
         position: relative;
         padding: 2em;
-        margin: 8% 0;
+        margin: 3% 0;
 
         .chartTitle {
             top: -5%;
@@ -180,8 +183,12 @@ p {
         perspective: 1000px;
     }
 
+    span {
+        color: $accentColor;
+    }
+
     .card {
-        width: 100%;
+        width: 98%;
         height: 78vh;
         transform-style: preserve-3d;
         transition: all 1.0s linear;
@@ -230,13 +237,15 @@ p {
       width: 100%;
       height: 100%;
       backface-visibility: hidden;
+      border: 1px solid $darkGrey;
+      background-image: linear-gradient(to top, #8f8f8f80, white);
     }
 
     .back {
       display: block;
       transform: rotateY(180deg);
       box-sizing: border-box;
-      color: $white;
+      color: black;
       text-align: center;
       background-color: #aaa;
       border-top-right-radius: 2px;
@@ -262,7 +271,7 @@ p {
                     -17px 17px rgb(170, 169, 169);
         overflow: scroll;
         overflow-x: hidden;
-        height: 78vh; 
+        height: 79vh; 
     }
 
     .chartContainer {
@@ -277,11 +286,11 @@ p {
 
     .talkScore {
         cursor: pointer;
-        float: left;
-        margin: 10% 0 10% 25%;
+        display: block;
+        margin: 10% auto 10% auto;
         background: $accentColor;
-        width: 85px;
-        height: 85px;
+        width: 65px;
+        height: 65px;
         border-radius: 50%;
         color: $white;
         font-weight: 700;
@@ -289,12 +298,22 @@ p {
         position: relative;
         transition: box-shadow 0.3s;
 
+            .fa-question {
+                pointer-events: none;
+                position: absolute;
+                left: 50%;
+                transform: translateX(-50%);
+                top:65%;
+                font-size: 1.3rem;
+            }
+
             &:hover {
                 box-shadow: 0px 0px 10px $accentColor;
             }
 
         p {
             position: absolute;
+            font-size: 1.7rem;
             top: 0;
             left: 50%;
             transform: translateX(-50%);
@@ -308,9 +327,10 @@ p {
 
          h4{
             text-transform: uppercase;
-            font-size: 1.3rem;
+            font-size: 1.5rem;
             text-align: center;
             color: $accentColor;
+            margin: 10px auto;
         }
 
         p {
@@ -372,11 +392,24 @@ footer {
        width: 65%; 
     }
 
+    a.button {
+        width: 70%;
+    }
+
+    .bookStats{
+        line-height: 1.8;
+    }
+
 }
 
 @media only screen and (min-width: 760px){
-    .bookHero {
+    .resultContainer .bookHero {
+        width:48%;
         float: left;
+    }
+
+    .bookHero:first-of-type {
+        border-right: none;
     }
 
     // FORM BREAKPOINT
@@ -393,6 +426,10 @@ footer {
         margin-left: 5%;
     }
 
+    .resultContainer .talkScore {
+        width: 85px;
+        height: 85px;
+    }
 }
 
 @media only screen and (min-width: 900px){
@@ -406,5 +443,13 @@ footer {
 @media only screen and (min-width: 1080px){
     .mainHeader .introCopy{
         font-size: 2rem;
+    }
+
+    .resultContainer .bookStats h4{
+        font-size: 1.7rem;
+    }
+
+    .resultContainer .talkScore{
+        margin: 20% 0 20% 35%;
     }
 }
