@@ -189,29 +189,19 @@ p {
   .mainHeader form {
     margin: 5% 0; }
 
-<<<<<<< HEAD
-.button {
-=======
 .button, a.button {
   text-decoration: none;
   text-transform: uppercase;
->>>>>>> e3b063ee483e11719f0b70a04cca11e43b00e9d6
   border: 2px solid #ea4136;
   background: #fafafa;
   color: #ea4136;
   padding: 10px;
-<<<<<<< HEAD
-  width: 90%;
-=======
   width: 100%;
->>>>>>> e3b063ee483e11719f0b70a04cca11e43b00e9d6
   transition: background 0.3s, color 0.3s; }
   .button:hover,
   .button :focus {
     color: #fafafa;
     background: #ea4136; }
-<<<<<<< HEAD
-=======
 
 a.button {
   width: 100%;
@@ -224,7 +214,6 @@ a.button {
   a.button :focus {
     color: #fafafa;
     background: #ea4136; }
->>>>>>> e3b063ee483e11719f0b70a04cca11e43b00e9d6
 
 .resultContainer {
   width: 100%;
